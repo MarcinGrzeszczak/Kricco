@@ -7,14 +7,14 @@ const EVENTS = {
     LISTENING: 'listening'
 }
 
-function dhcpServerCreator(port, onErrorCallback, onMessageCallback, onListeningCallback) {
+function dhcpServerCreator(onErrorCallback, onMessageCallback, onListeningCallback) {
     server.on(EVENTS.ERROR, onErrorCallback)
     
     server.on(EVENTS.MESSAGE, onMessageCallback)
     
     server.on(EVENTS.LISTENING, onListeningCallback)
 
-    server.bind(port)
+    server.bind()
     return server
 }
 
