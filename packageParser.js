@@ -6,7 +6,7 @@ const OPERATIONS_MAP = {
 }
 
 function parse(message){
-	return message.readUInt8(message.length-1)
+	return message
 }
 
 module.exports = parse
