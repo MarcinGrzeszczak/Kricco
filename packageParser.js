@@ -6,7 +6,14 @@ const OPERATIONS_MAP = {
 }
 
 function parse(message){
-	return message.toString('hex')
+	const opCode = message.readInt8(0)
+	const transactionId = message.readInt8(32)
+	const clientMac = message.readInt(228)
+	msg = `opCode : ${opCode} \n
+	transictionID : ${transactionId} \n
+	clientMac : ${clientMac}
+	`
+	return msg
 }
 
 module.exports = parse
