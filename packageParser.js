@@ -8,7 +8,7 @@ const OPERATIONS_MAP = {
 function parse(message){
 	const opCode = message.readInt8(0)
 	const transactionId = message.readInt8(32)
-	const clientMac = message.readInt(228)
+	const clientMac = message.readInt8(228)
 	msg = `opCode : ${opCode} \n
 	transictionID : ${transactionId} \n
 	clientMac : ${clientMac}
