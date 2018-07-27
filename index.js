@@ -13,9 +13,8 @@ function onError(error) {
 }
 
 function onMessage(message, remoteAddressInformation) {
-    console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
+    console.log(`Received message: ${packageParser(message)} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
     console.log(message)
-    
 }
 
 function onServerListening() {

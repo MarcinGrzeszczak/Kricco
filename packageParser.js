@@ -6,7 +6,7 @@ const OPERATIONS_MAP = {
 }
 
 function parse(message){
-	return message.toString(8)
+	return message.toString('hex')
 }
 
 module.exports = parse
