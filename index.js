@@ -1,7 +1,7 @@
 const dhcpServerCreator = require('./dhcpServerCreator')
 
 const commandArguments = process.argv.slice(2)
-const port = commandArguments[0] || 68
+const port = commandArguments[0] || 67
 
 function onError(error) {
     console.log(`Error occured ${error}`)
