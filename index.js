@@ -19,7 +19,7 @@ function onError(error) {
 
 function onMessage(message, remoteAddressInformation) {
     if (!commandArgumentsMap.outputOnlyPackets)
-        console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
+        console.log(`Received message: ${packageParser(message)} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
     if (commandArgumentsMap.outputOnlyPackets) console.log(message)
     if (commandArgumentsMap.closeAfterFirstPacket === 'true') process.exit()
 }
