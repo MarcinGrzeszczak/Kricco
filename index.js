@@ -6,7 +6,8 @@ const DEFAULT_PORT = 67
 const commandArgumentsList = process.argv.slice(2)
 
 const commandArgumentsMap = {
-    port: commandArgumentsList[0]
+    port: commandArgumentsList[0],
+    closeAfterFirstPacket: commandArgumentsList[1]
 }
 
 const port = commandArgumentsMap.port || DEFAULT_PORT
@@ -15,8 +16,9 @@ function onError(error) {
     console.log(`Error occured ${error}`)
 }
 
-function onMessage(message, rinfo) {
-    console.log(`Received message: ${packageParser(message)} from ${rinfo.address}:${rinfo.port}`)
+function onMessage(message, remoteAddressInformation) {
+    console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
+    if (commandArgumentsMap.closeAfterFirstPacket === 'true') process.exit()
 }
 
 function onServerListening() {
