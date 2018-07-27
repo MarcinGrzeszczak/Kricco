@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/MarcinGrzeszczak/Kricco#readme",
   "dependencies": {
+    "dhcpjs": "^1.0.0",
     "meow": "^5.0.0"
   }
 }

@@ -1,5 +1,5 @@
-const dgram = require('dgram')
-const server = dgram.createSocket('udp4')
+
+const server = require('dhcpjs').createServer()
 
 const EVENTS = {
     ERROR: 'error',

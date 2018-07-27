@@ -1,12 +1,11 @@
 #!/usr/bin/env node
-
-
 const dhcpServerCreator = require('./dhcpServerCreator')
 const packageParser = require('./packageParser')
 const handleArguments = require('./cli/handleArguments')
 const args = handleArguments()
 
 const port = args.flags.port
+
 
 function onError(error) {
     console.log(`Error occured ${error}`)
