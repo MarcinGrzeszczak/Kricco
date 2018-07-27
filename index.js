@@ -11,8 +11,8 @@ function onError(error) {
     console.log(`Error occured ${error}`)
 }
 
-function onMessage(message, remoteAddressInformation) {
-    console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
+function onMessage(message) {
+    console.log(`Received message: ${message}`)
     console.log(message)
 }
 
