@@ -14,8 +14,8 @@ function onError(error) {
     console.log(`Error occured ${error}`)
 }
 
-function onMessage(message, rinfo) {
-    console.log(`Received message: ${message} from ${rinfo.address}:${rinfo.port}`)
+function onMessage(message, remoteAddressInformation) {
+    console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
 }
 
 function onServerListening() {
