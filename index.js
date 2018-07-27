@@ -1,5 +1,8 @@
 const dhcpServerCreator = require('./dhcpServerCreator')
 
+const commandArguments = process.argv.slice(2)
+const port = commandArguments[0] || 68
+
 function onError(error) {
     console.log(`Error occured ${error}`)
 }
@@ -9,7 +12,7 @@ function onMessage(message, rinfo) {
 }
 
 function onServerListening() {
-    console.log('DHCP Server is listening')
+    console.log(`DHCP Server is listening on port ${port}`)
 }
 
-const dhcpServer = dhcpServerCreator(onError, onMessage, onServerListening)
+const dhcpServer = dhcpServerCreator(port, onError, onMessage, onServerListening)
