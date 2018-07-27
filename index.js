@@ -1,4 +1,5 @@
 const dhcpServerCreator = require('./dhcpServerCreator')
+const packageParser = require('./packageParser')
 
 const DEFAULT_PORT = 67
 
@@ -14,8 +15,8 @@ function onError(error) {
     console.log(`Error occured ${error}`)
 }
 
-function onMessage(message, remoteAddressInformation) {
-    console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
+function onMessage(message, rinfo) {
+    console.log(`Received message: ${packageParser(message)} from ${rinfo.address}:${rinfo.port}`)
 }
 
 function onServerListening() {
