@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/MarcinGrzeszczak/Kricco/issues"
   },
-  "homepage": "https://github.com/MarcinGrzeszczak/Kricco#readme"
+  "homepage": "https://github.com/MarcinGrzeszczak/Kricco#readme",
+  "dependencies": {
+    "meow": "^5.0.0"
+  }
 }
