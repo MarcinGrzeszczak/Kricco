@@ -14,18 +14,18 @@ const commandArgumentsMap = {
 const port = commandArgumentsMap.port || DEFAULT_PORT
 
 function onError(error) {
-    if (!outputOnlyPackets) console.log(`Error occured ${error}`)
+    if (!commandArgumentsMap.outputOnlyPackets) console.log(`Error occured ${error}`)
 }
 
 function onMessage(message, remoteAddressInformation) {
-    if (!outputOnlyPackets)
+    if (!commandArgumentsMap.outputOnlyPackets)
         console.log(`Received message: ${message} from ${remoteAddressInformation.address}:${remoteAddressInformation.port}`)
-    if (outputOnlyPackets) console.log(message)
+    if (commandArgumentsMap.outputOnlyPackets) console.log(message)
     if (commandArgumentsMap.closeAfterFirstPacket === 'true') process.exit()
 }
 
 function onServerListening() {
-    if (!outputOnlyPackets) console.log(`DHCP Server is listening on port ${port}`)
+    if (!commandArgumentsMap.outputOnlyPackets) console.log(`DHCP Server is listening on port ${port}`)
 }
 
 const dhcpServer = dhcpServerCreator(port, onError, onMessage, onServerListening)
