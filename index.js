@@ -1,7 +1,14 @@
 const dhcpServerCreator = require('./dhcpServerCreator')
 
-const commandArguments = process.argv.slice(2)
-const port = commandArguments[0] || 67
+const DEFAULT_PORT = 67
+
+const commandArgumentsList = process.argv.slice(2)
+
+const commandArgumentsMap = {
+    port: commandArgumentsList[0]
+}
+
+const port = commandArgumentsMap.port || DEFAULT_PORT
 
 function onError(error) {
     console.log(`Error occured ${error}`)
