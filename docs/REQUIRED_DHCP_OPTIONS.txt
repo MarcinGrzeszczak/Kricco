@@ -1,0 +1,77 @@
+{
+"53" : {
+  "name": "DHCP Message Type",
+  "length": 1,
+  "properties" : {
+    "DHCP": {
+      "length" : 1,
+      "type": "string"
+    }
+  }
+},
+
+"50" : {
+  "name": "Requested IP Address",
+  "length": 4,
+  "properties": {
+    "Address": {
+      "length: 4,
+      type: 'ip'
+    }
+  }
+}
+
+55 : {
+  name: 'Parameter Request List',
+  length: minimum 1,
+  properties: {
+      id: {
+        name: 'string'
+      }
+  }
+}
+
+255 : end mark
+}
+
+
+
+
+1 : {
+   option_name: "Subnet Mask"
+   option_length: 4
+   value: subnet mask
+}
+
+3 : {
+   option_name: "Router"
+   option_length: 4
+   value: router ip
+}
+
+51 : {
+  option_name: 'IP address lease time'
+  option_length: 4
+  value: The time is in units of seconds, and is specified as a 32-bit
+   unsigned integer.
+
+54 : {
+  option_name: 'Server Identifier'
+  option_length: 4
+  value: DHCP IP
+}
+
+6 : {
+  option_name: 'Domain Name Server Option'
+  option_length: min 4 (length MUST always be a multiple
+   of 4.)
+
+   value : dns ip list
+
+}
+
+15 : {
+  option_name: 'Domain Name'
+  option_length: min 1
+  value: string
+}
