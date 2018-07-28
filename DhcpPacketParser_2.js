@@ -1,6 +1,5 @@
 const protocolParsingUtils = require('./protocolParsingUtils')
 function parse(message) {
-	const 
 	const result = {
 		siaddr: protocolParsingUtils.parseIp(message, 20),
 		giaddr: protocolParsingUtils.parseIp(message, 24),
