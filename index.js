@@ -14,6 +14,7 @@ function onError(error) {
 }
 
 function onMessage(message) {
+    console.log('::::::::::::NEW MESSAGE::::::::::::')
     const packet32bitLines = dhcpPacketSplitter(message)
     console.log(`Received message: \n${packet32bitLines}`)
     console.log(dhcpPacketParser_1(message))
