@@ -4,7 +4,7 @@ function parse(message) {
 		siaddr: protocolParsingUtils.parseIp(message, 20),
 		giaddr: protocolParsingUtils.parseIp(message, 24),
 		chaddr: protocolParsingUtils.parseMac(message, 28),
-		magicCookie: message.toString('hex', 240, 240 + 4)
+		magicCookie: message.slice(232, 232 + 16)
 	}
 	console.log(result)
 	return message
