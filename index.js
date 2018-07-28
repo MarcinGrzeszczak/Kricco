@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 const dhcpServerCreator = require('./dhcpServerCreator')
 const handleArguments = require('./cli/handleArguments')
+const dhcpPacketParser_1 = require('./DhcpPacketParser_1')
+const dhcpPacketParser_2 = require('./DhcpPacketParser_2')
+
 const args = handleArguments()
 
 const port = args.flags.port
@@ -12,7 +15,8 @@ function onError(error) {
 
 function onMessage(message) {
     console.log(`Received message: ${message}`)
-    console.log(message)
+    console.log(dhcpPacketParser_1(message))
+    console.log(dhcpPacketParser_2(message))
 }
 
 function onServerListening() {
