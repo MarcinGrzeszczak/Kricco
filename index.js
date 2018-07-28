@@ -23,4 +23,4 @@ function onServerListening() {
     console.log(`DHCP Server is listening on port ${port}`)
 }
 
-const dhcpServer = dhcpServerCreator(onError, onMessage, onServerListening)
+const dhcpServer = dhcpServerCreator(port, onError, onMessage, onServerListening)
