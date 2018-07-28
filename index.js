@@ -3,7 +3,6 @@ const dhcpServerCreator = require('./dhcpServerCreator')
 const handleArguments = require('./cli/handleArguments')
 const dhcpPacketParser_1 = require('./DhcpPacketParser_1')
 const dhcpPacketParser_2 = require('./DhcpPacketParser_2')
-const dhcpPacketSplitter= require('./dhcpPacketSplitter')
 const args = handleArguments()
 
 const port = args.flags.port
@@ -15,8 +14,7 @@ function onError(error) {
 
 function onMessage(message) {
     console.log('::::::::::::NEW MESSAGE::::::::::::')
-    const packet32bitLines = dhcpPacketSplitter(message)
-    console.log(`Received message: \n${packet32bitLines}`)
+    console.log(`Received message: \n${message}`)
     console.log(dhcpPacketParser_1(message))
     console.log(dhcpPacketParser_2(message))
 }
