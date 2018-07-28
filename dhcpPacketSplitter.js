@@ -17,10 +17,12 @@ const LINES = [
 function dhcpPacketLinesParser(buffer) {
     const step = 4
     let result = []
+    let loopCount = 0
     for (let i = 0 ; i + step <= buffer.length ; i += step) {
         const dhcpLine = buffer.slice(i, i + step)
-        console.log('Line: ', LINES[i !== 0 ? i/step : 0], dhcpLine)
+        console.log('Line: ', LINES[loopCount], dhcpLine)
         result.push(dhcpLine)
+        loopCount++
     }
     return result
 }
