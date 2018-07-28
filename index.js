@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const dhcpServerCreator = require('./dhcpServerCreator')
+const udpServerCreator = require('./udpServerCreator')
 const handleArguments = require('./cli/handleArguments')
 const parseBootp = require('./bootpParser/parseBootp')
 const args = handleArguments()
@@ -21,4 +21,4 @@ function onServerListening() {
     console.log(`DHCP Server is listening on port ${port}`)
 }
 
-const dhcpServer = dhcpServerCreator(port, onError, onMessage, onServerListening)
+const udpServer = udpServerCreator(port, onError, onMessage, onServerListening)
