@@ -1,7 +1,4 @@
-
-function parserIP(uIntNumber) {
-	return uIntNumber
-}
+const protocolParsingUtils = require('./protocolParsingUtils')
 
 function parse(message) {
 	frameDictionary = {
@@ -12,8 +9,8 @@ function parse(message) {
 		'XID' : message.readUInt32BE(4),
 		'SECS': message.readUInt16BE(8),
 		'FLAGS': message.readUInt16BE(10),
-		'CIADDR': parserIP(message.readUInt32BE(12)),
-		'YIADDR': parserIP(message.readUInt32BE(16))
+		'CIADDR': protocolParsingUtils.parseIp(message,12),
+		'YIADDR': protocolParsingUtils.parseIp(message,16)
 
 	}
 	return frameDictionary
