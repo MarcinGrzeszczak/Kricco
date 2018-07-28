@@ -19,7 +19,7 @@ function dhcpPacketLinesParser(buffer) {
     let result = []
     for (let i = 0 ; i + step <= buffer.length ; i += step) {
         const dhcpLine = buffer.slice(i, i + step)
-        console.log('Line: ', LINES[i], dhcpLine)
+        console.log('Line: ', LINES[i !== 0 ? i/step : 0], dhcpLine)
         result.push(dhcpLine)
     }
     return result
