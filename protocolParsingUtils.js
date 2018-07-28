@@ -1,5 +1,8 @@
+
+const _ = require('lodash')
 module.exports = {
-    parseIp
+    parseIp,
+    parseMac
 }
 
 function parseIp(buffer, offset) {
@@ -7,5 +10,6 @@ function parseIp(buffer, offset) {
 }
 
 function parseMac(buffer, offset) {
-    return `${buffer.readInt8(offset)}.${buffer.readInt8(offset+1)}.${buffer.readInt8(offset+2)}.${buffer.readInt8(offset+3)}`
+    const numbersString = buffer.toString('hex', offset, offset+6)
+    return _.chunk(numbersString.split(''), 2).join(':')
 }
