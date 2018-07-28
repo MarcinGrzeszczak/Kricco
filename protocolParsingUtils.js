@@ -11,6 +11,8 @@ function parseIp(buffer, offset) {
 
 function parseMac(buffer, offset) {
     const numbersString = buffer.toString('hex', offset, offset+6)
-    console.log(numbersString)
-    return _.chunk(numbersString.split(''), 2).join(':')
+    const macGroupedByArraysOfNumbersPairs = _.chunk(numbersString.split(''), 2)
+    const macGroupedByStringsOfNumbersPairs = _.map(macGroupedByArraysOfNumbersPairs, arr => arr.join(''))
+    const stringifiedMac = macGroupedByStringsOfNumbersPairs.join(':')
+    return stringifiedMac
 }
