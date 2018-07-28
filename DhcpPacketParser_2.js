@@ -1,13 +1,14 @@
 const protocolParsingUtils = require('./protocolParsingUtils')
 function parse(message) {
+	const 
 	const result = {
-		siaddr: protocolParsingUtils.parseIp(message, 40),
-		giaddr: protocolParsingUtils.parseIp(message, 48),
+		siaddr: protocolParsingUtils.parseIp(message, 20),
+		giaddr: protocolParsingUtils.parseIp(message, 24),
 		chaddr: [
-			message.readInt32BE(56),
-			message.readInt32BE(88),
-			message.readInt32BE(120),
-			message.readInt32BE(152)
+			message.readInt32BE(28),
+			message.readInt32BE(32),
+			message.readInt32BE(36),
+			message.readInt32BE(40)
 		]
 	}
 	console.log(result)
