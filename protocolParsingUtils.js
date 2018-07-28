@@ -2,7 +2,9 @@
 const _ = require('lodash')
 module.exports = {
     parseIp,
-    parseMac
+    parseMac,
+    parseTo8UInt,
+    parseToListOf8UInts
 }
 
 function parseIp(buffer, offset) {
@@ -15,4 +17,12 @@ function parseMac(buffer, offset) {
     const macGroupedByStringsOfNumbersPairs = _.map(macGroupedByArraysOfNumbersPairs, arr => arr.join(''))
     const stringifiedMac = macGroupedByStringsOfNumbersPairs.join(':')
     return stringifiedMac
+}
+
+function parseTo8UInt(buffer) {
+    return buffer.readUInt8()
+}
+
+function parseToListOf8UInts(buffer, length) {
+    return new Uint8Array(buffer.slice(0, length))
 }
