@@ -5,7 +5,7 @@ const OPTIONS = {
     53: new DhcpOption(
         'DHCP Message Type',
         [
-            DhcpOptionProperties.LENGTH
+            DhcpOptionProperties.IPV4
         ]
     ),
     55: new DhcpOption(

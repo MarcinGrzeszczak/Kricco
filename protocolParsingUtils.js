@@ -7,11 +7,11 @@ module.exports = {
     parseToListOf8UInts
 }
 
-function parseIp(buffer, offset) {
+function parseIp(buffer, offset = 0) {
     return `${buffer.readUInt8(offset)}.${buffer.readUInt8(offset+1)}.${buffer.readUInt8(offset+2)}.${buffer.readUInt8(offset+3)}`
 }
 
-function parseMac(buffer, offset) {
+function parseMac(buffer, offset = 0) {
     const numbersString = buffer.toString('hex', offset, offset+6)
     const macGroupedByArraysOfNumbersPairs = _.chunk(numbersString.split(''), 2)
     const macGroupedByStringsOfNumbersPairs = _.map(macGroupedByArraysOfNumbersPairs, arr => arr.join(''))
@@ -23,6 +23,6 @@ function parseTo8UInt(buffer) {
     return buffer.readUInt8()
 }
 
-function parseToListOf8UInts(buffer, length) {
-    return new Uint8Array(buffer.slice(0, length))
+function parseToListOf8UInts(buffer) {
+    return new Uint8Array(buffer)
 }
