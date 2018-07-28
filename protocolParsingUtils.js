@@ -10,7 +10,7 @@ function parseIp(buffer, offset) {
 }
 
 function parseMac(buffer, offset) {
-    const numbersString = buffer.toString('hex', offset, offset+6)
+    const numbersString = buffer.toString('hex', offset, offset+4)
     console.log(numbersString)
     return _.chunk(numbersString.split(','), 2).join(':')
 }
