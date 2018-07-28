@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const dhcpServerCreator = require('./dhcpServerCreator')
 const handleArguments = require('./cli/handleArguments')
-const parseBootp = require('./parseBootp')
+const parseBootp = require('./bootpParser/parseBootp')
 const args = handleArguments()
 
 const port = args.flags.port

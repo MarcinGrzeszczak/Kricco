@@ -1,4 +1,4 @@
-const protocolParsingUtils= require('./protocolParsingUtils')
+const protocolParsingUtils= require('../protocolParsingUtils')
 const BOOTP_OFFSETS = require('./bootpOffsets')
 function parse(message) {
     return  {
