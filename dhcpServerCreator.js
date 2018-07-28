@@ -1,5 +1,6 @@
 
-const server = require('dhcpjs').createServer()
+const dgram = require('dgram')
+const server = dgram.createSocket('udp4')
 
 const EVENTS = {
     ERROR: 'error',
@@ -7,14 +8,14 @@ const EVENTS = {
     LISTENING: 'listening'
 }
 
-function dhcpServerCreator(onErrorCallback, onMessageCallback, onListeningCallback) {
+function dhcpServerCreator(port, onErrorCallback, onMessageCallback, onListeningCallback) {
     server.on(EVENTS.ERROR, onErrorCallback)
     
     server.on(EVENTS.MESSAGE, onMessageCallback)
     
     server.on(EVENTS.LISTENING, onListeningCallback)
 
-    server.bind()
+    server.bind(port)
     return server
 }
 
