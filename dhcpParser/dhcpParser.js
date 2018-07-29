@@ -11,7 +11,7 @@ function getOptions(dhcpOptionsPayload) {
     let nonParsedPayload = dhcpOptionsPayload
     let options = []
     while(nonParsedPayload.length) {
-        const {skippedPayload, parsedOption} = parseNextOption(payloadToParse)
+        const {skippedPayload, parsedOption} = parseNextOption(nonParsedPayload)
         options.push(parsedOption)
         nonParsedPayload = skippedPayload
     }
