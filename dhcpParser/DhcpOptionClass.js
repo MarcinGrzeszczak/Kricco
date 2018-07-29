@@ -19,6 +19,7 @@ class DhcpOption {
 
     static parseMetaData(nonParsedDhcpOptions) {
         const META_DATA_LENGTH = 2
+        console.log(nonParsedDhcpOptions.length)
         const code = nonParsedDhcpOptions.slice(0,1).readUInt8()
         const optionLength = nonParsedDhcpOptions.slice(1,2).readUInt8()
         const payloadLength = optionLength - META_DATA_LENGTH
