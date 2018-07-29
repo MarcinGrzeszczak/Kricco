@@ -19,6 +19,9 @@ function getOptions(dhcpOptionsPayload) {
 }
 
 function parseNextOption(payloadToParse) {
+    if (payloadToParse.length < META_DATA_LENGTH) {
+        console.log('Parsing offsets went wrong.', payloadToParse.length)
+    }
     const optionMetaData = DhcpOption.parseMetaData(payloadToParse)
     if (!dhcpOptions[optionMetaData.code]) return {skippedPayload: payloadToParse, parsedOption: {}}
     const parsedOption = dhcpOptions[optionMetaData.code].parsePayload(optionMetaData, payloadToParse)
