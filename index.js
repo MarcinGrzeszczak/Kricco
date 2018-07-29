@@ -4,7 +4,7 @@ const handleArguments = require('./cli/handleArguments')
 const parseBootp = require('./bootpParser/parseBootp')
 const dhcpParser = require('./dhcpParser/dhcpParser')
 const args = handleArguments()
-
+const fs = require('fs');
 const port = args.flags.port
 
 
@@ -14,7 +14,14 @@ function onError(error) {
 
 function onMessage(message) {
     console.log('::::::::::::NEW MESSAGE::::::::::::')
-    console.log(parseBootp(message))
+    
+    fs.writeFile('../dhcpDiscoveryPacketExample', message, function(err) {
+        if(err) return console.log(err)
+
+        console.log("The file was saved!")
+        process.exit()
+    })
+    //console.log(parseBootp(message))
     //console.log(dhcpParser.getOptions(message.slice(240)))
     console.log(`Received message: \n${message}`)
 }
