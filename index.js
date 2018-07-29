@@ -15,7 +15,7 @@ function onError(error) {
 function onMessage(message) {
     console.log('::::::::::::NEW MESSAGE::::::::::::')
     console.log(parseBootp(message))
-    //console.log(dhcpParser.getOptions(message.slice(240)))
+    //console.log(dhcpParser.getOptions(message.slice(240))) //240 is beginning of DHCP options
     console.log(`Received message: \n${message}`)
 }
 
