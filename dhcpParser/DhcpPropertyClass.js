@@ -1,6 +1,6 @@
 const UNKNOWN_PROPERTY_LENGTH = Symbol('Unknown proeprty length')
 
-class DhcpOptionProperty {
+class DhcpProperty {
     constructor(name, payloadLength, parser) {
         this.name = name
         this.payloadLength = payloadLength
@@ -19,3 +19,5 @@ class DhcpOptionProperty {
         return UNKNOWN_PROPERTY_LENGTH
     }
 }
+
+module.exports = DhcpProperty
