@@ -2,16 +2,25 @@ const DhcpOption = require('./DhcpOptionClass')
 const DhcpOptionProperties = require('./dhcpProperties')
 
 const OPTIONS = {
+
     53: new DhcpOption(
         'DHCP Message Type',
         [
-            DhcpOptionProperties.IPV4
+            DhcpOptionProperties.DHCP_MESSAGE_TYPE
         ]
     ),
-    55: new DhcpOption(
-        'Parameter Request List',
+
+    60: new DhcpOption(
+        'Vendor class identifier',
         [
-            DhcpOptionProperties.PARAMETER_REQUEST_LIST
+            DhcpOptionProperties.VENDOR_CLASS_IDENTIFIER
+        ]
+    ),
+    
+    255: new DhcpOption(
+        'END',
+        [
+            DhcpOptionProperties.END
         ]
     )
 }

@@ -2,6 +2,7 @@
 const _ = require('lodash')
 module.exports = {
     parseIp,
+    parseToString,
     parseMac,
     parseTo8UInt,
     parseToListOf8UInts
@@ -21,6 +22,12 @@ function parseMac(buffer, offset = 0) {
 
 function parseTo8UInt(buffer) {
     return buffer.readUInt8()
+}
+
+function parseToString(buffer) {
+    const parsedText = buffer.toString()
+    const strippedText = parsedText.replace('\f','')
+    return strippedText
 }
 
 function parseToListOf8UInts(buffer) {

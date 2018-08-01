@@ -12,7 +12,7 @@ class DhcpProperty {
     }
 
     isLengthKnown() {
-        return this.payloadLength === UNKNOWN_PROPERTY_LENGTH
+        return this.payloadLength !== UNKNOWN_PROPERTY_LENGTH
     }
 
     static getUnknownPropertyLengthSymbol() {
