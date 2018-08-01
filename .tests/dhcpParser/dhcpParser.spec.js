@@ -17,8 +17,8 @@ describe('#dhcpOptions', () => {
 		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
 
 		//then
-		const expectedPropertyName = 'Host Name'
-		const expectedPropertyValue = 'android-d4ce383518a14fe27'
+		const expectedPropertyName = 'Host-Name'
+		const expectedPropertyValue = 'android-d4ce383518a14fe2'
 		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
 	})
 	
@@ -31,7 +31,7 @@ describe('#dhcpOptions', () => {
 		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
 
 		//then
-		const expectedPropertyName = 'DHCP Message Type'
+		const expectedPropertyName = 'DHCP-Message-Type'
 		const expectedPropertyValue = 1
 		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
 	})
@@ -45,18 +45,16 @@ describe('#dhcpOptions', () => {
 		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
 
 		//then
-		const expectedPropertyName = 'Parameter Request List'
-		const expectedPropertyValue = [
+		const expectedPropertyName = 'Parameter-Request-List'
+		const expectedPropertyValue = new Uint8Array([
 			1,
+			33,
 			3,
 			6,
 			15,
-			26,
 			28,
-			51,
-			58,
-			59]
-		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
+			51])
+		assert.deepEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
 	})
 
 	it('should parse Maximum DHCP Message Size (57)', () => {
@@ -68,7 +66,7 @@ describe('#dhcpOptions', () => {
 		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
 
 		//then
-		const expectedPropertyName = 'Maximum DHCP Message Size'
+		const expectedPropertyName = 'Maximum-DHCP-Message-Size'
 		const expectedPropertyValue = 1500
 		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
 	})

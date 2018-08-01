@@ -5,6 +5,7 @@ module.exports = {
     parseToString,
     parseMac,
     parseTo8UInt,
+    parseTo16UInt,
     parseToListOf8UInts
 }
 
@@ -23,6 +24,11 @@ function parseMac(buffer, offset = 0) {
 function parseTo8UInt(buffer) {
     return buffer.readUInt8()
 }
+
+function parseTo16UInt(buffer) {
+    return buffer.readUInt16BE()
+}
+
 
 function parseToString(buffer) {
     const parsedText = buffer.toString()

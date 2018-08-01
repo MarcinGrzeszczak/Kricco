@@ -27,7 +27,6 @@ function parseNextOption(payloadToParse) {
         console.log('Missing parameter ', optionMetaData.code)
         return {skippedPayload, parsedOption: {}}
     }
-   
     const parsedOption = dhcpOptions[optionMetaData.code].parsePayload(optionMetaData, payloadToParse)
     return {skippedPayload, parsedOption}
 }
