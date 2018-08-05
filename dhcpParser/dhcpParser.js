@@ -22,15 +22,8 @@ function parseNextOption(payloadToParse) {
     }
     
     dhcpOption = new DhcpOption()
-    dhcpOption.parseMetaData(payloadToParse)
+    dhcpOption.parseToReadableFormat(payloadToParse)
     const skippedPayload = payloadToParse.slice(0, dhcpOption.getMetaData().optionLength)
-
-    if(dhcpOption.isMissingOption()) {
-        console.log('Missing option')
-        dhcpOption = {}
-        return {skippedPayload, dhcpOption} 
-    }
-
     dhcpOption.parsePayload(dhcpOption.getMetaData(), payloadToParse)
 
     return {skippedPayload, dhcpOption}
