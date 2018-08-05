@@ -15,7 +15,7 @@ describe('#dhcpOptions', () => {
 
 		//when
 		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
-		console.log(parsedOptions)
+		
 		//then
 		const expectedPropertyName = 'Host-Name'
 		const expectedPropertyValue = 'android-d4ce383518a14fe2'

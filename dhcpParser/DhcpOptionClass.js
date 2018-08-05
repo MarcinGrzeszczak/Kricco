@@ -1,5 +1,6 @@
 const DHCP_OPTIONS = require('./dhcpOptions')
 const _ = require('lodash')
+const MISSING_OPTION = Symbol('Missing option')
 class DhcpOption {
     
     constructor() {
@@ -14,6 +15,10 @@ class DhcpOption {
         return this.parsedPayload
     }
 
+    isMissingOption(){
+        return this.metaData.optionSchema === MISSING_OPTION
+    }
+
     getAllProperties() {
         return this.parsedPayload
     }
@@ -24,6 +29,8 @@ class DhcpOption {
 
     findOptionByCode(optionCode) {
         const filteredOption = _.filter(DHCP_OPTIONS, {code: optionCode})
+        if (filteredOption.length === 0)
+            return MISSING_OPTION
         return filteredOption[0]
     }
 
