@@ -1,32 +1,53 @@
-const DhcpProperty = require('./DhcpPropertyClass')
+const DHCP_OPTIONS = require('./dhcpOptions')
+const _ = require('lodash')
 class DhcpOption {
-    constructor(name, properties) {
-        this.properties = properties
-        this.name = name
+    
+    constructor() {
+        this.parsedPayload = null
+        this.metaData = null
+    }
+
+    getValue() {
+        if (this.metaData.optionSchema.name in this.parsedPayload)
+            return this.parsedPayload[this.metaData.optionSchema.name]
+
+        return this.parsedPayload
+    }
+
+    getAllProperties() {
+        return this.parsedPayload
+    }
+
+    getMetaData() {
+        return this.metaData
+    }
+
+    findOptionByCode(optionCode) {
+        const filteredOption = _.filter(DHCP_OPTIONS, {code: optionCode})
+        return filteredOption[0]
     }
 
     parsePayload(metaData, dhcpOptionsPayload) {
-        let payloadData = {
-            name: null,
-            value: null
-        }
-        let nonParsedPayload = dhcpOptionsPayload.slice(2, metaData.payloadLength)
-        this.properties.forEach(propertySchema => {
-            payloadData.name = propertySchema.name 
-            payloadData.value = propertySchema.parse(nonParsedPayload)
+        let payloadData = {}
+        const propertiesArray = metaData.optionSchema.properties
+        let nonParsedPayload = dhcpOptionsPayload.slice(2, metaData.optionLength)
+        propertiesArray.forEach(propertySchema => {
             //Property with unknown length should always be last item in the array
             if (propertySchema.isLengthKnown())
                 nonParsedPayload = nonParsedPayload.slice(0, propertySchema.payloadLength)
+
+            payloadData[propertySchema.name] = propertySchema.parse(nonParsedPayload)
         })
-        return payloadData
+        this.parsedPayload = payloadData
     }
 
-    static parseMetaData(nonParsedDhcpOptions) {
+    parseMetaData(nonParsedDhcpOptions) {
         const META_DATA_LENGTH = 2
-        const code = nonParsedDhcpOptions.slice(0,1).readUInt8()
-        const optionLength = nonParsedDhcpOptions.slice(1,2).readUInt8()
-        const payloadLength = optionLength + META_DATA_LENGTH
-        return {code, payloadLength}
+        const optionCode = nonParsedDhcpOptions.slice(0,1).readUInt8()
+        const optionSchema = this.findOptionByCode(optionCode)
+        const payloadLength = nonParsedDhcpOptions.slice(1,2).readUInt8()
+        const optionLength = payloadLength + META_DATA_LENGTH
+        this.metaData = {optionSchema, optionLength}
     }
 }
 

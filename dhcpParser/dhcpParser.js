@@ -1,5 +1,4 @@
 const DhcpOption = require('./DhcpOptionClass')
-const dhcpOptions = require('./dhcpOptions')
 const _ = require('lodash')
 
 const META_DATA_LENGTH = 2
@@ -9,26 +8,27 @@ function getOptions(dhcpOptionsPayload) {
     let nonParsedPayload = dhcpOptionsPayload
     let options = {}
     while(nonParsedPayload.length) {
-        const {skippedPayload, parsedOption} = parseNextOption(nonParsedPayload)
-        options[parsedOption.name] = parsedOption.value
+        const {skippedPayload, dhcpOption} = parseNextOption(nonParsedPayload)
+        options[dhcpOption.getMetaData().optionSchema.name] = dhcpOption.getValue()
         nonParsedPayload = nonParsedPayload.slice(skippedPayload.length, -1)
     }
+    console.log(options)
     return options
 }
 
 function parseNextOption(payloadToParse) {
+    
     if (payloadToParse.length < META_DATA_LENGTH) {
         console.log('Parsing offsets went wrong.', payloadToParse.length)
         return {skippedPayload: Buffer.from([]), parsedOption: {}}
     }
-    const optionMetaData = DhcpOption.parseMetaData(payloadToParse)
-    const skippedPayload = payloadToParse.slice(0, optionMetaData.payloadLength) //+ META_DATA_LENGTH)
-    if (!dhcpOptions[optionMetaData.code]) {
-        console.log('Missing parameter ', optionMetaData.code)
-        return {skippedPayload, parsedOption: {}}
-    }
-    const parsedOption = dhcpOptions[optionMetaData.code].parsePayload(optionMetaData, payloadToParse)
-    return {skippedPayload, parsedOption}
+   
+    dhcpOption =  new DhcpOption()
+    dhcpOption.parseMetaData(payloadToParse)
+    dhcpOption.parsePayload(dhcpOption.getMetaData(), payloadToParse)
+    const skippedPayload = payloadToParse.slice(0, dhcpOption.getMetaData().optionLength)
+  
+    return {skippedPayload, dhcpOption}
 }
 
 module.exports = {

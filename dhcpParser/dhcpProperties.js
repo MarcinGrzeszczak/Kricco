@@ -3,7 +3,7 @@ const protocolParsingUtils= require('../protocolParsingUtils')
 const UNKNOWN_PROPERTY_LENGTH = DhcpProperty.getUnknownPropertyLengthSymbol()
 module.exports = {
     MAXIMUM_DHCP_MESSAGE_SIZE:
-        new DhcpProperty('Maximum-DHCP-Message-Size',2, protocolParsingUtils.parseTo16UInt),
+        new DhcpProperty('Maximum-DHCP-Message-Size', 2, protocolParsingUtils.parseTo16UInt),
 
     HOST_NAME:
         new DhcpProperty('Host-Name', UNKNOWN_PROPERTY_LENGTH, protocolParsingUtils.parseToString),

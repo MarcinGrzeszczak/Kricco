@@ -8,18 +8,18 @@ describe('#dhcpOptions', () => {
 		suite.DHCP_DISCOVERY_PACKET = fs.readFileSync('mocks/dhcpDiscovery.bin')
 	})
 
-	it('should parse Host Name (12)', () => {
+	it.only('should parse Host Name (12)', () => {
 		//given
 		const DHCP_OPTIONS_START_BYTE = 240
 		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)
 
 		//when
 		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
-
+		console.log(parsedOptions)
 		//then
 		const expectedPropertyName = 'Host-Name'
 		const expectedPropertyValue = 'android-d4ce383518a14fe2'
-		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
+		assert.strictEqual(parsedOptions[expectedPropertyName], expectedPropertyValue)
 	})
 	
 	it('should parse DHCP Message Type (53)', () => {
@@ -33,7 +33,7 @@ describe('#dhcpOptions', () => {
 		//then
 		const expectedPropertyName = 'DHCP-Message-Type'
 		const expectedPropertyValue = 1
-		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
+		assert.strictEqual(parsedOptions[expectedPropertyName], expectedPropertyValue)
 	})
 
 	it('should parse Parameter Request List (55)', () => {
@@ -54,7 +54,7 @@ describe('#dhcpOptions', () => {
 			15,
 			28,
 			51])
-		assert.deepEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
+		assert.deepEqual(parsedOptions[expectedPropertyName], expectedPropertyValue)
 	})
 
 	it('should parse Maximum DHCP Message Size (57)', () => {
@@ -68,7 +68,7 @@ describe('#dhcpOptions', () => {
 		//then
 		const expectedPropertyName = 'Maximum-DHCP-Message-Size'
 		const expectedPropertyValue = 1500
-		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
+		assert.strictEqual(parsedOptions[expectedPropertyName], expectedPropertyValue)
 	})
 
 	it('should parse Vendor class identifier (60)', () => {
@@ -82,6 +82,6 @@ describe('#dhcpOptions', () => {
 		//then
 		const expectedPropertyName = 'Vendor-class-identifier'
 		const expectedPropertyValue = 'android-dhcp-7.0'
-		assert.strictEqual(expectedPropertyValue, parsedOptions[expectedPropertyName])
+		assert.strictEqual(parsedOptions[expectedPropertyName], expectedPropertyValue)
 	})
 })
