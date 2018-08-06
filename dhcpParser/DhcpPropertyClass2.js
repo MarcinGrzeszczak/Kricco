@@ -1,5 +1,4 @@
 const TYPE_PARSER = Symbol('Type parser')
-const CHUNK_BYTESIZE = Symbol('Chunk bytesize')
 const IS_LIST = Symbol('Is list')
 const NAME = Symbol('Name')
 const IS_BUFFER_SIZE_VALID = Symbol('Is buffer size valid')
@@ -22,7 +21,7 @@ class DhcpProperty {
     }
 
     getChunkBytesize() {
-        return this[IS_LIST]
+        return this[TYPE_PARSER].getSize()
     }
 
     serialize(listOfValues) {
