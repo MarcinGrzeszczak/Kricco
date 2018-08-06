@@ -51,7 +51,6 @@ class DhcpProperty {
 
         return parsedValuesList
     }
-
-
-
 }
+
+module.exports = DhcpProperty
