@@ -34,6 +34,7 @@ class DhcpProperty {
         return Buffer.concat(listOfBuffers, finalBufferSize)
     }
 
+    //Not whole DHCP Options buffer, only part belonging to this DHCP property
     deserialize(bufferChunk) {
         if (this[IS_BUFFER_SIZE_VALID](bufferChunk)) {
             const error = `${this.getName()} Property deserialize error: Buffer size ${bufferChunk.length}, doesn't match property allowed chunk bytesize (${this.getChunkBytesize()})`
