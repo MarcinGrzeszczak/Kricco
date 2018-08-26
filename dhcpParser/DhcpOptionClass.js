@@ -19,9 +19,9 @@ class DhcpOption {
         return buffer.readUInt8()
     }
 
-    parse(bufferSlice) {
+    parse(dhcpOptionRelatedBufferSlice) {
         const PAYLOAD_OFFSET = 2
-        const payload = bufferSlice.slice(PAYLOAD_OFFSET)
+        const payload = dhcpOptionRelatedBufferSlice.slice(PAYLOAD_OFFSET)
         const parsedProperties = this.properties.reduce(DhcpOption.accumulateProperties(payload), {})
         return parsedProperties
     }

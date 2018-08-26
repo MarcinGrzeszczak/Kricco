@@ -49,16 +49,15 @@ class DhcpProperty {
         return Buffer.concat(listOfBuffers, finalBufferSize)
     }
 
-    //Not whole DHCP Options buffer, only part belonging to this DHCP property
-    deserialize(bufferChunk) {
-        if (!this[IS_BUFFER_SIZE_VALID](bufferChunk))
-            this.throwDeserializationError(bufferChunk)
+    deserialize(dhcpPropertyRelatedBufferSlice) {
+        if (!this[IS_BUFFER_SIZE_VALID](dhcpPropertyRelatedBufferSlice))
+            this.throwDeserializationError(dhcpPropertyRelatedBufferSlice)
 
-        const parserIterations = bufferChunk.length / this[GET_SINGLE_DATA_UNIT_SIZE]()
+        const parserIterations = dhcpPropertyRelatedBufferSlice.length / this[GET_SINGLE_DATA_UNIT_SIZE]()
         const emptyList = new Array(parserIterations).fill(0)
         const parsedValuesList = emptyList.map((emptyValue, iteration) => {
             const offset = iteration * this[GET_SINGLE_DATA_UNIT_SIZE]()
-            const singleUnitOfData = bufferChunk.slice(offset, offset + this[GET_SINGLE_DATA_UNIT_SIZE]())
+            const singleUnitOfData = dhcpPropertyRelatedBufferSlice.slice(offset, offset + this[GET_SINGLE_DATA_UNIT_SIZE]())
             return this[TYPE_PARSER].deserialize(singleUnitOfData)
         })
         const formattedValue = this[FORMATTER](parsedValuesList)
