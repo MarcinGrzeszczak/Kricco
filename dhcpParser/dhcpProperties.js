@@ -13,7 +13,7 @@ const dhcpProperties = {
     HOST_NAME: {
         name: 'Host-Name',
         isList: true,
-        typeParser: typesParsers.string,
+        typeParser: typesParsers.utf8,
         formatter: FORMATTERS.JOIN
     },
     DHCP_MESSAGE_TYPE: {
@@ -24,7 +24,7 @@ const dhcpProperties = {
     VENDOR_CLASS_IDENTIFIER: {
         name: 'Vendor-class-identifier',
         isList: true,
-        typeParser: typesParsers.string,
+        typeParser: typesParsers.utf8,
         formatter: FORMATTERS.JOIN
     },
     PARAMETER_REQUEST_LIST: {

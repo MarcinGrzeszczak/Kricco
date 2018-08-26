@@ -13,7 +13,7 @@ const dictionary = {
         deserialize: buffer => buffer.readUInt16BE(),
         size: 2
     },
-    string: {
+    utf8: {
         serialize: string => Buffer.alloc(1).write(string),
         deserialize: buffer => buffer.toString('utf8'),
         size: 1
