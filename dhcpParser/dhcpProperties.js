@@ -1,7 +1,8 @@
+const _ = require('lodash')
+
 const DhcpProperty = require('./DhcpPropertyClass')
 const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
-const _ = require('lodash')
 
 const dhcpProperties = {
     MAXIUMUM_DHCP_MESSAGE_SIZE: {

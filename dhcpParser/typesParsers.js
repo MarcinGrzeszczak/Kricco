@@ -1,5 +1,6 @@
-const TypeParser = require('./TypeParserClass')
 const _ = require('lodash')
+
+const TypeParser = require('./TypeParserClass')
 
 const dictionary = {
     uInt8: {

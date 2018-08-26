@@ -1,7 +1,7 @@
+const _ = require('lodash')
+
 const DhcpOption = require('./DhcpOptionClass')
 const dhcpProperties = require('./dhcpProperties')
-
-const _ = require('lodash')
 
 const OPTIONS = {
     12: {

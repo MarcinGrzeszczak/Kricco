@@ -1,4 +1,3 @@
-const sharedSymbols = require('./sharedSymbols')
 class DhcpOption {
     constructor({name, properties}) {
         this.name = name

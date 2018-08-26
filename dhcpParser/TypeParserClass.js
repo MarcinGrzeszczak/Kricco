@@ -12,5 +12,4 @@ class TypeParser {
     }
 }
 
-
 module.exports = TypeParser

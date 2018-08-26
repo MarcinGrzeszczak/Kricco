@@ -1,11 +1,13 @@
+const FORMATTERS = require('./formatters')
+const sharedSymbols = require('./sharedSymbols')
+
 const TYPE_PARSER = Symbol('Type parser')
 const IS_LIST = Symbol('Is list')
 const NAME = Symbol('Name')
 const IS_BUFFER_SIZE_VALID = Symbol('Is buffer size valid')
 const FORMATTER = Symbol('Formatter')
 const GET_SINGLE_DATA_UNIT_SIZE = Symbol('Get single data unit size')
-const FORMATTERS = require('./formatters')
-const sharedSymbols = require('./sharedSymbols')
+
 class DhcpProperty {
     constructor({typeParser, isList, name, formatter = FORMATTERS.EXTRACT_FIRST_ELEMENT}) {
         this[TYPE_PARSER] = typeParser

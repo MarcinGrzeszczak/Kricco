@@ -4,5 +4,4 @@ const FORMATTERS = {
     NONE: parsedValue => parsedValue
 }
 
-
 module.exports = FORMATTERS
