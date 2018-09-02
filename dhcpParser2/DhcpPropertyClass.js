@@ -4,9 +4,8 @@ const NAME = Symbol('Name')
 const IS_BUFFER_SIZE_VALID = Symbol('Is buffer size valid')
 
 class DhcpProperty {
-    constructor({typeParser, chunkBytesize, isList, name}) {
+    constructor({typeParser, isList, name}) {
         this[TYPE_PARSER] = typeParser
-        this[CHUNK_BYTESIZE] = chunkBytesize
         this[IS_LIST] = isList
         this[NAME] = name
     }
