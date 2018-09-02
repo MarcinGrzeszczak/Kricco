@@ -23,6 +23,10 @@ class DhcpProperty {
         return this[TYPE_PARSER].getSize()
     }
 
+    getBufferSlice(buffer) {
+        return buffer.slice(0, this.getChunkBytesize())
+    }
+
     serialize(listOfValues) {
         if (!this[IS_LIST] && listOfValues.length > 1) {
             const error = `${this.getName()} Property serialize error: list of values of length ${listOfValues.length}, has been passed to serialize, but the data type is not a list type)`
