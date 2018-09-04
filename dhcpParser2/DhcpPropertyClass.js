@@ -24,6 +24,7 @@ class DhcpProperty {
     }
 
     getBufferSlice(buffer) {
+        if (this[IS_LIST]) return buffer
         return buffer.slice(0, this.getChunkBytesize())
     }
 
@@ -44,6 +45,7 @@ class DhcpProperty {
             throw new Error(error)
         }
         const parserIterations = bufferChunk.length / this.getChunkBytesize()
+        console.log(parserIterations)
         //console.log('DhcpPropertyClass.deserialize() : ',parserIterations, bufferChunk.length, this.getChunkBytesize(), bufferChunk)
         const emptyList = new Array(parserIterations).fill(0)
         const parsedValuesList = emptyList.map((emptyValue, iteration) => {
