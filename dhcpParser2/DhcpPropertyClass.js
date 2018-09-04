@@ -2,12 +2,14 @@ const TYPE_PARSER = Symbol('Type parser')
 const IS_LIST = Symbol('Is list')
 const NAME = Symbol('Name')
 const IS_BUFFER_SIZE_VALID = Symbol('Is buffer size valid')
-
+const FORMATTER = Symbol('Formatter')
+const FORMATTERS = require('./formatters')
 class DhcpProperty {
-    constructor({typeParser, isList, name}) {
+    constructor({typeParser, isList, name, formatter = FORMATTERS.EXTRACT_FIRST_ELEMENT}) {
         this[TYPE_PARSER] = typeParser
         this[IS_LIST] = isList
         this[NAME] = name
+        this[FORMATTER] = formatter
     }
 
     [IS_BUFFER_SIZE_VALID](bufferChunk) {
@@ -45,16 +47,14 @@ class DhcpProperty {
             throw new Error(error)
         }
         const parserIterations = bufferChunk.length / this.getChunkBytesize()
-        console.log(parserIterations)
-        //console.log('DhcpPropertyClass.deserialize() : ',parserIterations, bufferChunk.length, this.getChunkBytesize(), bufferChunk)
         const emptyList = new Array(parserIterations).fill(0)
         const parsedValuesList = emptyList.map((emptyValue, iteration) => {
             const offset = iteration * this.getChunkBytesize()
             const singleUnitOfData = bufferChunk.slice(offset, offset + this.getChunkBytesize())
             return this[TYPE_PARSER].deserialize(singleUnitOfData)
         })
-
-        return parsedValuesList
+        const formattedValue = this[FORMATTER](parsedValuesList)
+        return formattedValue
     }
 }
 

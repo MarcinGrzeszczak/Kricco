@@ -1,5 +1,6 @@
 const DhcpProperty = require('./DhcpPropertyClass')
 const typesParsers = require('./typesParsers')
+const FORMATTERS = require('./formatters')
 const _ = require('lodash')
 
 const dhcpProperties = {
@@ -11,22 +12,25 @@ const dhcpProperties = {
     HOST_NAME: {
         name: 'Host-Name',
         isList: true,
-        typeParser: typesParsers.string
+        typeParser: typesParsers.string,
+        formatter: FORMATTERS.JOIN
     },
     DHCP_MESSAGE_TYPE: {
-        name: 'DHCP_Message_Type',
+        name: 'DHCP-Message-Type',
         isList: false,
         typeParser: typesParsers.uInt8
     },
     VENDOR_CLASS_IDENTIFIER: {
         name: 'Vendor-class-identifier',
         isList: true,
-        typeParser: typesParsers.string
+        typeParser: typesParsers.string,
+        formatter: FORMATTERS.JOIN
     },
     PARAMETER_REQUEST_LIST: {
         name: 'Parameter-Request-List',
         isList: true,
-        typeParser: typesParsers.uInt8
+        typeParser: typesParsers.uInt8,
+        formatter: FORMATTERS.NONE
     },
     IPV4: {
         name: 'IPv4-Address',
