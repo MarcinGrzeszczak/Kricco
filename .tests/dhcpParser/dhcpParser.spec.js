@@ -8,7 +8,7 @@ describe('#dhcpOptions', () => {
 		suite.DHCP_DISCOVERY_PACKET = fs.readFileSync('mocks/dhcpDiscovery.bin')
 	})
 
-	it('should parse Host Name (12)', () => {
+	it.only('should parse Host Name (12)', () => {
 		//given
 		const DHCP_OPTIONS_START_BYTE = 240
 		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)

@@ -7,6 +7,11 @@ const dictionary = {
         deserialize: buffer => buffer.readUInt8(),
         size: 1 
     },
+    uInt16: {
+        serialize: number => Buffer.alloc(16).writeUInt16BE(number),
+        deserialize: buffer => buffer.readUInt16BE(),
+        size: 2
+    },
     string: {
         serialize: string => Buffer.alloc(1).write(string),
         deserialize: buffer => buffer.toString('utf8'),
@@ -23,6 +28,11 @@ const dictionary = {
             return listOfOctets.join('.')
         },
         size: 32
+    },
+    end: {
+        serialize: () => Buffer.alloc(0),
+        deserialize: () => null,
+        size: 0
     }
 }
 

@@ -6,7 +6,7 @@ const dhcpProperties = {
     MAXIUMUM_DHCP_MESSAGE_SIZE: {
         name: 'Maximum-DHCP-Message-Size',
         isList: false,
-        typeParser: typesParsers.uInt8
+        typeParser: typesParsers.uInt16
     },
     HOST_NAME: {
         name: 'Host-Name',
@@ -36,8 +36,10 @@ const dhcpProperties = {
     END: {
         name: 'END',
         isList: true,
-        typeParser: typesParsers.uInt8
+        typeParser: typesParsers.end
     }
 }
 
-module.exports = _.mapValues(dhcpProperties, value => new DhcpProperty(value))
+const instantiatedProperties = _.mapValues(dhcpProperties, value => new DhcpProperty(value))
+//console.log(instantiatedProperties)
+module.exports = instantiatedProperties 

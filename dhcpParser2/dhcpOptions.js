@@ -28,7 +28,7 @@ const OPTIONS = {
     57: {
       name: 'Maximum DHCP Message Size',
       properties: [
-            dhcpProperties.MAXIMUM_DHCP_MESSAGE_SIZE
+            dhcpProperties.MAXIUMUM_DHCP_MESSAGE_SIZE
       ]  
     },
     60: {
@@ -46,5 +46,5 @@ const OPTIONS = {
 }
 
 const instantiatedOptions = _.mapValues(OPTIONS, option => new DhcpOption(option))
-
+//console.log(instantiatedOptions)
 module.exports = instantiatedOptions
