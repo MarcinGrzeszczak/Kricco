@@ -2,11 +2,13 @@ const dhcpOptions = require('./dhcpOptions')
 
 
 function getOptions(buffer) {
-
+    
+    return {}
 }
 
-function getNextOption() {
+function getNextOption(buffer, offset, accumulatedOptions = {}) {
 
+    //return getNextOption(buffer, nextOffset, newAccumulatedOptions)
 }
 
-module.exports = getOptions
+module.exports = {getOptions}

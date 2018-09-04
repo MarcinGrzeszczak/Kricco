@@ -23,7 +23,7 @@ class DhcpProperty {
         return this[TYPE_PARSER].getSize()
     }
 
-    getBufferSlice(buffer) {
+    parseBufferSlice(buffer) {
         return buffer.slice(0, this.getChunkBytesize())
     }
 

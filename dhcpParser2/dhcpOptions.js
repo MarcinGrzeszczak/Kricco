@@ -1,6 +1,8 @@
 const DhcpOption = require('./DhcpOptionClass')
 const dhcpProperties = require('./dhcpProperties')
 
+const _ = require('lodash')
+
 const OPTIONS = {
     12: new DhcpOption(
         'Host Name',
@@ -43,4 +45,6 @@ const OPTIONS = {
     )
 }
 
-module.exports = OPTIONS
+const instantiatedOptions = _.mapValues(OPTIONS, option => new DhcpOption(option))
+
+module.exports = instantiatedOptions

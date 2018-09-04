@@ -4,13 +4,13 @@ class DhcpOption {
         this.properties = properties
     }
 
-    static getBufferSlice(buffer) {
+    static parseBufferSlice(buffer) {
         const SIZE_OFFSET = 1
         const size = buffer.readUInt8(SIZE_OFFSET)
         return buffer.slice(0, size)
     }
 
-    static getOptionNumber(buffer) {
+    static parseOptionNumber(buffer) {
         return buffer.readUInt8()
     }
 
@@ -21,7 +21,7 @@ class DhcpOption {
             if (property.isList) {
                 //TO DO handling list properties
             }
-            const bufferSlice = property.getBufferSlice(payload)
+            const bufferSlice = property.parseBufferSlice(payload)
             return parsedPropertiesObject[property.name] = property.deserialize(bufferSlice)
         }, {})
         return parsedProperties
