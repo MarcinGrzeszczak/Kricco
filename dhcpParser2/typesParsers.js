@@ -5,7 +5,7 @@ const dictionary = {
     uInt8: {
         serialize: number => Buffer.alloc(8).writeUInt8(number),
         deserialize: buffer => buffer.readUInt8(),
-        size: 8
+        size: 1 
     },
     string: {
         serialize: string => Buffer.alloc(1).write(string),

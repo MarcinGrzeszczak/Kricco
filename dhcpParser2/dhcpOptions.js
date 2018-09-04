@@ -4,45 +4,45 @@ const dhcpProperties = require('./dhcpProperties')
 const _ = require('lodash')
 
 const OPTIONS = {
-    12: new DhcpOption(
-        'Host Name',
-        [
+    12: {
+        name: 'Host Name',
+        properties: [
             dhcpProperties.HOST_NAME
         ]
-    ),
+    },
 
-    53: new DhcpOption(
-        'DHCP Message Type',
-        [
+    53: {
+        name: 'DHCP Message Type',
+        properties: [
             dhcpProperties.DHCP_MESSAGE_TYPE
         ]
-    ),
+    },
 
-    55: new DhcpOption(
-        'Parameter request list',
-        [
+    55: {
+        name: 'Parameter request list',
+        properties: [
             dhcpProperties.PARAMETER_REQUEST_LIST
         ]
-    ),
+    },
 
-    57: new DhcpOption(
-      'Maximum DHCP Message Size',
-      [
+    57: {
+      name: 'Maximum DHCP Message Size',
+      properties: [
             dhcpProperties.MAXIMUM_DHCP_MESSAGE_SIZE
       ]  
-    ),
-    60: new DhcpOption(
-        'Vendor class identifier',
-        [
+    },
+    60: {
+        name: 'Vendor class identifier',
+        properties: [
             dhcpProperties.VENDOR_CLASS_IDENTIFIER
         ]
-    ),    
-    255: new DhcpOption(
-        'END',
-        [
+    },    
+    255: {
+        name: 'END',
+        properties: [
             dhcpProperties.END
         ]
-    )
+    } 
 }
 
 const instantiatedOptions = _.mapValues(OPTIONS, option => new DhcpOption(option))
