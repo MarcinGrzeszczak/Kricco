@@ -54,15 +54,18 @@ describe('#dhcpOptions', () => {
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'Parameter-Request-List'
-		const EXPECTED_PROPERTY_VALUE = new Uint8Array([
+		const EXPECTED_PROPERTY_VALUE = [
 			1,
 			33,
 			3,
 			6,
 			15,
 			28,
-			51])
-		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
+			51,
+			58,
+			59,
+			43]
+		assert.sameMembers(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
 
 	it('should parse Maximum DHCP Message Size (57)', () => {
