@@ -22,15 +22,17 @@ class DhcpOption {
     parse(bufferSlice) {
         const PAYLOAD_OFFSET = 2
         const payload = bufferSlice.slice(PAYLOAD_OFFSET)
-        let offset = 0
         const parsedProperties = this.properties.reduce((parsedPropertiesObject, property) => {
             property.getName()
             const bufferSlice = property.getBufferSlice(payload)
-            offset += property.getChunkBytesize()
             parsedPropertiesObject[property.getName()] = property.deserialize(bufferSlice)
             return parsedPropertiesObject
         }, {})
         return parsedProperties
+    }
+
+    static accumulateProperties() {
+
     }
 }
 
