@@ -1,6 +1,5 @@
 # Kricco
-DHCP Server.
-The app is a DHCP server which assigns IP addresses to newly connected connections. It listenes on port 67, and when new device connects to the network, the app assigns IP to the newly connected device, so it can identify itself.
+The app is a DHCP server which assigns IP addresses to devices that try to access a network. It listenes on port 67, and when new device asks for an IP, the app serves it to the requesting device over DHCP protocol.
 
 # How to run
 Run below command to start server:
