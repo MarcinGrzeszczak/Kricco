@@ -1,5 +1,4 @@
 const SIZE = Symbol('Size')
-const NAME = Symbol('Name')
 
 class TypeParser {
     constructor({serialize, deserialize, size}) {

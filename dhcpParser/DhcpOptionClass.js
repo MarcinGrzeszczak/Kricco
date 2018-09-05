@@ -20,13 +20,10 @@ class DhcpOption {
     }
 
     parse(bufferSlice) {
-        //console.log('parse', bufferSlice)
         const PAYLOAD_OFFSET = 2
         const payload = bufferSlice.slice(PAYLOAD_OFFSET)
         let offset = 0
-        //console.log(this.name, 'properties:', this.properties)
         const parsedProperties = this.properties.reduce((parsedPropertiesObject, property) => {
-            //console.log('DhcpOption: ', property )
             property.getName()
             const bufferSlice = property.getBufferSlice(payload)
             offset += property.getChunkBytesize()
