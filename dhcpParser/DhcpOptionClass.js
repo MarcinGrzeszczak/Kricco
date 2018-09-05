@@ -28,11 +28,13 @@ class DhcpOption {
     }
 
     static accumulateProperties(payload) {
+        let offset = 0
         return (parsedPropertiesObject, property) => {
             const bufferSlice = property.getBufferSlice(payload)
             const propertyName = property.getName()
             parsedPropertiesObject[propertyName] = property.deserialize(bufferSlice)
-            payload = bufferSlice.slice(bufferSlice.length)
+            offset += bufferSlice.length
+            payload = bufferSlice.slice(offset)
             return parsedPropertiesObject
         }
     }
