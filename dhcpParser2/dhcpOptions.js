@@ -46,5 +46,4 @@ const OPTIONS = {
 }
 
 const instantiatedOptions = _.mapValues(OPTIONS, option => new DhcpOption(option))
-//console.log(instantiatedOptions)
 module.exports = instantiatedOptions
