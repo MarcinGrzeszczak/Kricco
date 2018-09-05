@@ -14,5 +14,7 @@ The default port is 67, you may need to give administrator/root privilleges to t
 
  # Roadmap
  - [X] Parse BOOTP Packets
- - [ ] Parse DHCP Packers (WIP)
+ - [ ] Parse DHCP Packers (Done for basic DHCP Discovery packets)
  - [ ] Send DHCP Pakcets
+ - [ ] IP Addresses map
+ - [ ] IP Addresses management
