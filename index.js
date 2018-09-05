@@ -2,7 +2,7 @@
 const udpServerCreator = require('./udpServerCreator')
 const handleArguments = require('./cli/handleArguments')
 const parseBootp = require('./bootpParser/parseBootp')
-const dhcpParser = require('./dhcpParser2/dhcpParser')
+const dhcpParser = require('./dhcpParser/dhcpParser')
 const args = handleArguments()
 
 const port = args.flags.port
