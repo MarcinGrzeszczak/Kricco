@@ -12,7 +12,9 @@ function getOptions(buffer) {
 function getNextOption(buffer, offset = 0, accumulatedOptions = {}) {
     const optionNumber = DhcpOption.parseOptionNumber(buffer.slice(offset))
     const optionName = dhcpOptions[optionNumber].name
-    if (optionNumber === END_OPTION_NUMBER) return Object.assign({}, accumulatedOptions, {[optionName]: {}})
+    if (optionNumber === END_OPTION_NUMBER)
+        return Object.assign({}, accumulatedOptions, {[optionName]: {}})
+
     const relatedBufferSlice = DhcpOption.getBufferSlice(buffer.slice(offset))
     const retrievedProperties = dhcpOptions[optionNumber].parse(relatedBufferSlice)
     const newAccumulatedOptions = Object.assign({}, accumulatedOptions, {[optionName]: retrievedProperties})

@@ -32,10 +32,10 @@ class DhcpOption {
         return (parsedPropertiesObject, property) => {
             const bufferSlice = property.getBufferSlice(payload)
             const propertyName = property.getName()
-            parsedPropertiesObject[propertyName] = property.deserialize(bufferSlice)
+            const parsingResult = {[propertyName]: property.deserialize(bufferSlice)}
             offset += bufferSlice.length
             payload = bufferSlice.slice(offset)
-            return parsedPropertiesObject
+            return Object.assign({}, parsedPropertiesObject, parsingResult)
         }
     }
 }
