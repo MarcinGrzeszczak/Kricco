@@ -49,10 +49,9 @@ class DhcpProperty {
 
     //Not whole DHCP Options buffer, only part belonging to this DHCP property
     deserialize(bufferChunk) {
-        if (!this[IS_BUFFER_SIZE_VALID](bufferChunk)) {
-            const error = `${this.getName()} Property deserialize error: Buffer size ${bufferChunk.length}, doesn't match property allowed chunk bytesize (${this.getChunkBytesize()})`
-            throw new Error(error)
-        }
+        if (!this[IS_BUFFER_SIZE_VALID](bufferChunk))
+            this.throwDeserializationError(bufferChunk)
+
         const parserIterations = bufferChunk.length / this[GET_SINGLE_DATA_UNIT_SIZE]()
         const emptyList = new Array(parserIterations).fill(0)
         const parsedValuesList = emptyList.map((emptyValue, iteration) => {
@@ -62,6 +61,11 @@ class DhcpProperty {
         })
         const formattedValue = this[FORMATTER](parsedValuesList)
         return formattedValue
+    }
+
+    throwDeserializationError(bufferChunk) {
+        const error = `${this.getName()} Property deserialize error: Buffer size ${bufferChunk.length}, doesn't match property allowed chunk bytesize (${this.getChunkBytesize()})`
+        throw new Error(error)
     }
 }
 
