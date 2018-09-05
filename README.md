@@ -11,3 +11,8 @@ The default port is 67, you may need to give administrator/root privilleges to t
  - meow
  - lodash
  - chai & mocha
+
+ # Roadmap
+ - [X] Parse BOOTP Packets
+ - [ ] Parse DHCP Packers (WIP)
+ - [ ] Send DHCP Pakcets
