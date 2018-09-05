@@ -3,7 +3,9 @@ const IS_LIST = Symbol('Is list')
 const NAME = Symbol('Name')
 const IS_BUFFER_SIZE_VALID = Symbol('Is buffer size valid')
 const FORMATTER = Symbol('Formatter')
+const GET_SINGLE_DATA_UNIT_SIZE = Symbol('Get single data unit size')
 const FORMATTERS = require('./formatters')
+const sharedSymbols = require('./sharedSymbols')
 class DhcpProperty {
     constructor({typeParser, isList, name, formatter = FORMATTERS.EXTRACT_FIRST_ELEMENT}) {
         this[TYPE_PARSER] = typeParser
@@ -14,7 +16,11 @@ class DhcpProperty {
 
     [IS_BUFFER_SIZE_VALID](bufferChunk) {
         if (!this[IS_LIST]) return bufferChunk.length === this.getChunkBytesize()
-        return Number.isInteger(bufferChunk.length / this.getChunkBytesize())
+        return Number.isInteger(bufferChunk.length / this[GET_SINGLE_DATA_UNIT_SIZE]())
+    }
+
+    [GET_SINGLE_DATA_UNIT_SIZE]() {
+        return this[TYPE_PARSER].getSize()
     }
 
     getName() {
@@ -22,12 +28,13 @@ class DhcpProperty {
     }
 
     getChunkBytesize() {
-        return this[TYPE_PARSER].getSize()
+        if (this[IS_LIST]) sharedSymbols.UNKNOWN_LENGTH
+        return this[GET_SINGLE_DATA_UNIT_SIZE]()
     }
 
     getBufferSlice(buffer) {
         if (this[IS_LIST]) return buffer
-        return buffer.slice(0, this.getChunkBytesize())
+        return buffer.slice(0, this[GET_SINGLE_DATA_UNIT_SIZE]())
     }
 
     serialize(listOfValues) {
@@ -35,7 +42,7 @@ class DhcpProperty {
             const error = `${this.getName()} Property serialize error: list of values of length ${listOfValues.length}, has been passed to serialize, but the data type is not a list type)`
             throw new Error(error)
         }
-        const finalBufferSize = listOfValues.length * this.getChunkBytesize()
+        const finalBufferSize = listOfValues.length * this[GET_SINGLE_DATA_UNIT_SIZE]()
         const listOfBuffers = listOfValues.map(this[TYPE_PARSER].serialize)
         return Buffer.concat(listOfBuffers, finalBufferSize)
     }
@@ -46,11 +53,11 @@ class DhcpProperty {
             const error = `${this.getName()} Property deserialize error: Buffer size ${bufferChunk.length}, doesn't match property allowed chunk bytesize (${this.getChunkBytesize()})`
             throw new Error(error)
         }
-        const parserIterations = bufferChunk.length / this.getChunkBytesize()
+        const parserIterations = bufferChunk.length / this[GET_SINGLE_DATA_UNIT_SIZE]()
         const emptyList = new Array(parserIterations).fill(0)
         const parsedValuesList = emptyList.map((emptyValue, iteration) => {
-            const offset = iteration * this.getChunkBytesize()
-            const singleUnitOfData = bufferChunk.slice(offset, offset + this.getChunkBytesize())
+            const offset = iteration * this[GET_SINGLE_DATA_UNIT_SIZE]()
+            const singleUnitOfData = bufferChunk.slice(offset, offset + this[GET_SINGLE_DATA_UNIT_SIZE]())
             return this[TYPE_PARSER].deserialize(singleUnitOfData)
         })
         const formattedValue = this[FORMATTER](parsedValuesList)

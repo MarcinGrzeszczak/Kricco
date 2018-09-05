@@ -1,3 +1,4 @@
+const sharedSymbols = require('./sharedSymbols')
 class DhcpOption {
     constructor({name, properties}) {
         this.name = name
@@ -22,17 +23,20 @@ class DhcpOption {
     parse(bufferSlice) {
         const PAYLOAD_OFFSET = 2
         const payload = bufferSlice.slice(PAYLOAD_OFFSET)
-        const parsedProperties = this.properties.reduce((parsedPropertiesObject, property) => {
-            property.getName()
-            const bufferSlice = property.getBufferSlice(payload)
-            parsedPropertiesObject[property.getName()] = property.deserialize(bufferSlice)
-            return parsedPropertiesObject
-        }, {})
+        const parsedProperties = this.properties.reduce(DhcpOption.accumulateProperties(payload), {})
         return parsedProperties
     }
 
-    static accumulateProperties() {
-
+    static accumulateProperties(payload) {
+        let offset = 0
+        return (parsedPropertiesObject, property) => {
+            const bufferSlice = property.getBufferSlice(payload)
+            const propertyName = property.getName()
+            parsedPropertiesObject[propertyName] = property.deserialize(bufferSlice)
+            offset += bufferSlice.length
+            payload = bufferSlice.slice(offset)
+            return parsedPropertiesObject
+        }
     }
 }
 
