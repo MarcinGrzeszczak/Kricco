@@ -45,5 +45,4 @@ const dhcpProperties = {
 }
 
 const instantiatedProperties = _.mapValues(dhcpProperties, value => new DhcpProperty(value))
-//console.log(instantiatedProperties)
 module.exports = instantiatedProperties 
