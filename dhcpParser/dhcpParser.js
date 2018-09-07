@@ -11,6 +11,7 @@ function getOptions(buffer) {
 
 function getNextOption(buffer, offset = 0, accumulatedOptions = {}) {
     const optionNumber = DhcpOption.parseOptionNumber(buffer.slice(offset))
+    if (!dhcpOptions[optionNumber]) return handleUnknownDhcpProperty(buffer, offset, accumulatedOptions, optionNumber)
     const optionName = dhcpOptions[optionNumber].name
     if (optionNumber === END_OPTION_NUMBER)
         return Object.assign({}, accumulatedOptions, {[optionName]: {}})
@@ -23,6 +24,18 @@ function getNextOption(buffer, offset = 0, accumulatedOptions = {}) {
         buffer,
         newOffset,
         newAccumulatedOptions
+    )
+}
+
+function handleUnknownDhcpProperty(buffer, offset, accumulatedOptions = {}, optionNumber) {
+    console.error(`Unknown DHCP property ID: ${optionNumber}`)
+    const relatedBufferSlice = DhcpOption.getBufferSlice(buffer.slice(offset))
+    DhcpOption.parseOptionSize(relatedBufferSlice)
+    const newOffset = offset + METADATA_PAYLOAD_SIZE + DhcpOption.parseOptionSize(relatedBufferSlice)
+    return getNextOption(
+        buffer,
+        newOffset,
+        accumulatedOptions
     )
 }
 
