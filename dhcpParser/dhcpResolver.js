@@ -4,16 +4,25 @@ const _ = require('lodash')
 const DHCP_OPTION_DATABASE_URL = 'http://www.iana.org/assignments/bootp-dhcp-parameters/options.csv'
 const NEW_LINE_DELIMITER = '\n'
 const LINE_SEGMENT_DELIMITER = ','
+
+const DATA_ENCODING = 'utf8'
+
+//http events
+const DATA_INCOMMING = 'data'
+const DATA_DOWNLOADING_FINISHED = 'end'
+const DATA_DOWNLOADING_ERROR = 'error'
+
 function resolveDhcpOption(dhcpOptionId) {
     return new Promise((resolve, reject) => {
         http.get(DHCP_OPTION_DATABASE_URL, resp => {
             let data = ''
-            resp.setEncoding('utf8')
-            resp.on('data', chunk => {
+            resp.setEncoding(DATA_ENCODING)
+
+            resp.on(DATA_INCOMMING, chunk => {
                 data += chunk
             })
             
-            resp.on('end', () => {
+            resp.on(DATA_DOWNLOADING_FINISHED, () => {
                 const resolvedName =
                     splitDataIntoLines(data)
                         .map(splitLineIntoSegments)
@@ -23,7 +32,7 @@ function resolveDhcpOption(dhcpOptionId) {
                 resolve(resolvedName.message)
             })
         
-        }).on("error", err => 
+        }).on(DATA_DOWNLOADING_ERROR, err => 
             reject(err.message)
         )
     })
