@@ -8,8 +8,8 @@ const handleArguments = require('./cli/handleArguments')
 const parseDhcpPacket = require('./parseDhcpPacket')
 const args = handleArguments()
 
-const port = args.flags.port
-const fileToParse = args.flags.fileToParse
+const port = args.flags.port || args.flags.p
+const fileToParse = args.flags.fileToParse || args.flags.f
 
 
 if (fileToParse) {
