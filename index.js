@@ -16,22 +16,22 @@ if (fileToParse) {
     const dhcpPacket = fs.readFileSync(path.resolve(fileToParse))
     const parsingResult = parseDhcpPacket(dhcpPacket)
     console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
-    process.exit(0)
+} else {
+    udpServerCreator(port, onError, onMessage, onServerListening)
+
+    function onError(error) {
+        console.log(`Error occured ${error}`)
+    }
+    
+    function onMessage(message) {
+        console.log('::::::::::::NEW MESSAGE::::::::::::')
+        const parsingResult = parseDhcpPacket(message)
+        console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
+    }
+    
+    function onServerListening() {
+        console.log(`DHCP Server is listening on port ${port}`)
+    }
 }
 
 
-udpServerCreator(port, onError, onMessage, onServerListening)
-
-function onError(error) {
-    console.log(`Error occured ${error}`)
-}
-
-function onMessage(message) {
-    console.log('::::::::::::NEW MESSAGE::::::::::::')
-    const parsingResult = parseDhcpPacket(message)
-    console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
-}
-
-function onServerListening() {
-    console.log(`DHCP Server is listening on port ${port}`)
-}

@@ -1,5 +1,6 @@
 const dhcpOptions = require('./dhcpOptions')
 const DhcpOption = require('./DhcpOptionClass')
+const dhcpResolver = require('./dhcpResolver')
 
 const END_OPTION_NUMBER = 255
 const METADATA_PAYLOAD_SIZE = 2
@@ -28,7 +29,14 @@ function getNextOption(buffer, offset = 0, accumulatedOptions = {}) {
 }
 
 function handleUnknownDhcpProperty(buffer, offset, accumulatedOptions = {}, optionNumber) {
-    console.error(`Unknown DHCP property ID: ${optionNumber}`)
+    dhcpResolver(optionNumber)
+        .then(optionName => {
+            console.error(`Unknown DHCP option ID: ${optionNumber}, resolved as: ${optionName}`)
+        })
+        .catch(err => {
+            console.error(`Unknown DHCP option ID: ${optionNumber}, Kricco was unable to resolve the name`)
+        })
+    
     const relatedBufferSlice = DhcpOption.getBufferSlice(buffer.slice(offset))
     DhcpOption.parseOptionSize(relatedBufferSlice)
     const newOffset = offset + METADATA_PAYLOAD_SIZE + DhcpOption.parseOptionSize(relatedBufferSlice)
