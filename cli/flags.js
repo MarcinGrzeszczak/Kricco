@@ -5,5 +5,9 @@ module.exports = {
             default: 67,
             alias: 'p'
         },
+        file: {
+            type: 'string',
+            alias: 'f'
+        }
     }
 }
