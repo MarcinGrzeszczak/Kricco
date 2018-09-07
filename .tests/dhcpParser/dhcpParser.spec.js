@@ -6,18 +6,17 @@ let suite = {}
 describe('#dhcpOptions', () => {
 	before(() => {
 		suite.DHCP_DISCOVERY_PACKET = fs.readFileSync('mocks/dhcpDiscovery.bin')
+		suite.DHCP_OPTIONS_START_BYTE = 240
+		suite.DHCP_BINARY_DATA = suite.DHCP_DISCOVERY_PACKET.slice(suite.DHCP_OPTIONS_START_BYTE)
 	})
 
 	it('should parse Host Name (12)', () => {
 		//given
 		const OPTION_NUMBER = 12
 		const OPTION_NAME = dhcpOptions[OPTION_NUMBER].name
-		const DHCP_OPTIONS_START_BYTE = 240
-		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)
-		console.log(DHCP_OPTIONS.toString('hex'))
 
 		//when
-		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
+		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'Host-Name'
@@ -29,16 +28,13 @@ describe('#dhcpOptions', () => {
 		//given
 		const OPTION_NUMBER = 53
 		const OPTION_NAME = dhcpOptions[OPTION_NUMBER].name
-		const DHCP_OPTIONS_START_BYTE = 240
-		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)
 
 		//when
-		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
+		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'DHCP-Message-Type'
 		const EXPECTED_PROPERTY_VALUE = 1
-		console.log(parsedOptions, OPTION_NAME)
 		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
 
@@ -46,11 +42,9 @@ describe('#dhcpOptions', () => {
 		//given
 		const OPTION_NUMBER = 55
 		const OPTION_NAME = dhcpOptions[OPTION_NUMBER].name
-		const DHCP_OPTIONS_START_BYTE = 240
-		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)
 
 		//when
-		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
+		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'Parameter-Request-List'
@@ -64,7 +58,8 @@ describe('#dhcpOptions', () => {
 			51,
 			58,
 			59,
-			43]
+			43
+		]
 		assert.sameMembers(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
 
@@ -72,11 +67,9 @@ describe('#dhcpOptions', () => {
 		//given
 		const OPTION_NUMBER = 57
 		const OPTION_NAME = dhcpOptions[OPTION_NUMBER].name
-		const DHCP_OPTIONS_START_BYTE = 240
-		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)
 
 		//when
-		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
+		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'Maximum-DHCP-Message-Size'
@@ -88,11 +81,9 @@ describe('#dhcpOptions', () => {
 		//given
 		const OPTION_NUMBER = 60
 		const OPTION_NAME = dhcpOptions[OPTION_NUMBER].name
-		const DHCP_OPTIONS_START_BYTE = 240
-		const DHCP_OPTIONS = suite.DHCP_DISCOVERY_PACKET.slice(DHCP_OPTIONS_START_BYTE)
 
 		//when
-		const parsedOptions = dhcpOptionsParser.getOptions(DHCP_OPTIONS)
+		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'Vendor-class-identifier'
