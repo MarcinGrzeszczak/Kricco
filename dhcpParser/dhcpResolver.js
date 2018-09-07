@@ -1,3 +1,7 @@
+/*
+    DHCP Resolver, accesses external resource to resolve DHCP Option IDs that are unknown to Kricco
+*/
+
 const http = require('http')
 const _ = require('lodash')
 
