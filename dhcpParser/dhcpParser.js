@@ -34,7 +34,7 @@ function handleUnknownDhcpProperty(buffer, offset, accumulatedOptions = {}, opti
             console.error(`Unknown DHCP option ID: ${optionNumber}, resolved as: ${optionName}`)
         })
         .catch(err => {
-            console.error(`Unknown DHCP option ID: ${optionNumber}, Kricco was unable to resolve the name`)
+            console.error(`Unknown DHCP option ID: ${optionNumber}, Kricco was unable to resolve the name`, err)
         })
     
     const relatedBufferSlice = DhcpOption.getBufferSlice(buffer.slice(offset))
