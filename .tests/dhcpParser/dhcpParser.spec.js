@@ -5,6 +5,7 @@ const dhcpOptions = require('../../dhcpParser/dhcpOptions')
 let suite = {}
 describe('#dhcpOptions', () => {
 	before(() => {
+		suite = {}
 		suite.DHCP_DISCOVERY_PACKET = fs.readFileSync('mocks/dhcpDiscovery.bin')
 		suite.DHCP_OPTIONS_START_BYTE = 240
 		suite.DHCP_BINARY_DATA = suite.DHCP_DISCOVERY_PACKET.slice(suite.DHCP_OPTIONS_START_BYTE)
