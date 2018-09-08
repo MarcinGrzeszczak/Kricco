@@ -24,7 +24,7 @@ const dictionary = {
             return Buffer.alloc(32).writeUInt8(parsedOctets)
         },
         deserialize: buffer => {
-            let arrayToFill = [].fill(0, 0, 4)
+            let arrayToFill = Array(4).fill()
             const listOfOctets = arrayToFill.map((value, index) => Buffer.readUInt8(index))
             return listOfOctets.join('.')
         },
