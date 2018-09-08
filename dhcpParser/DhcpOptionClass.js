@@ -1,32 +1,41 @@
-const DhcpProperty = require('./DhcpPropertyClass')
 class DhcpOption {
-    constructor(name, properties) {
-        this.properties = properties
+    constructor({name, properties}) {
         this.name = name
+        this.properties = properties
     }
 
-    parsePayload(metaData, dhcpOptionsPayload) {
-        let payloadData = {
-            name: null,
-            value: null
+    static parseOptionSize(buffer) {
+        const SIZE_OFFSET = 1
+        return buffer.readUInt8(SIZE_OFFSET)
+    }
+
+    static getBufferSlice(buffer) {
+       const size = DhcpOption.parseOptionSize(buffer)
+       const PAYLOAD_OFFSET = 2
+       return buffer.slice(0, PAYLOAD_OFFSET + size)
+    }
+
+    static parseOptionNumber(buffer) {
+        return buffer.readUInt8()
+    }
+
+    parse(dhcpOptionRelatedBufferSlice) {
+        const PAYLOAD_OFFSET = 2
+        const payload = dhcpOptionRelatedBufferSlice.slice(PAYLOAD_OFFSET)
+        const parsedProperties = this.properties.reduce(DhcpOption.accumulateProperties(payload), {})
+        return parsedProperties
+    }
+
+    static accumulateProperties(payload) {
+        let offset = 0
+        return (parsedPropertiesObject, property) => {
+            const bufferSlice = property.getBufferSlice(payload)
+            const propertyName = property.getName()
+            const parsingResult = {[propertyName]: property.deserialize(bufferSlice)}
+            offset += bufferSlice.length
+            payload = bufferSlice.slice(offset)
+            return Object.assign({}, parsedPropertiesObject, parsingResult)
         }
-        let nonParsedPayload = dhcpOptionsPayload.slice(2, metaData.payloadLength)
-        this.properties.forEach(propertySchema => {
-            payloadData.name = propertySchema.name 
-            payloadData.value = propertySchema.parse(nonParsedPayload)
-            //Property with unknown length should always be last item in the array
-            if (propertySchema.isLengthKnown())
-                nonParsedPayload = nonParsedPayload.slice(0, propertySchema.payloadLength)
-        })
-        return payloadData
-    }
-
-    static parseMetaData(nonParsedDhcpOptions) {
-        const META_DATA_LENGTH = 2
-        const code = nonParsedDhcpOptions.slice(0,1).readUInt8()
-        const optionLength = nonParsedDhcpOptions.slice(1,2).readUInt8()
-        const payloadLength = optionLength + META_DATA_LENGTH
-        return {code, payloadLength}
     }
 }
 

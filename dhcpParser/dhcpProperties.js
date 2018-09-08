@@ -1,23 +1,49 @@
+const _ = require('lodash')
+
 const DhcpProperty = require('./DhcpPropertyClass')
-const protocolParsingUtils= require('../protocolParsingUtils')
-const UNKNOWN_PROPERTY_LENGTH = DhcpProperty.getUnknownPropertyLengthSymbol()
-module.exports = {
-    MAXIMUM_DHCP_MESSAGE_SIZE:
-        new DhcpProperty('Maximum-DHCP-Message-Size',2, protocolParsingUtils.parseTo16UInt),
+const typesParsers = require('./typesParsers')
+const FORMATTERS = require('./formatters')
 
-    HOST_NAME:
-        new DhcpProperty('Host-Name', UNKNOWN_PROPERTY_LENGTH, protocolParsingUtils.parseToString),
-
-    DHCP_MESSAGE_TYPE: 
-        new DhcpProperty('DHCP-Message-Type',1, protocolParsingUtils.parseTo8UInt),
-
-    VENDOR_CLASS_IDENTIFIER:
-        new DhcpProperty('Vendor-class-identifier', UNKNOWN_PROPERTY_LENGTH,protocolParsingUtils.parseToString),
-    
-    PARAMETER_REQUEST_LIST:
-        new DhcpProperty('Parameter-Request-List', UNKNOWN_PROPERTY_LENGTH, protocolParsingUtils.parseToListOf8UInts),
-    IPV4:
-        new DhcpProperty('IPv4-Address', 4, protocolParsingUtils.parseIp),
-    END:
-        new DhcpProperty('END',0,protocolParsingUtils.parseToListOf8UInts)
+const dhcpProperties = {
+    MAXIUMUM_DHCP_MESSAGE_SIZE: {
+        name: 'Maximum-DHCP-Message-Size',
+        isList: false,
+        typeParser: typesParsers.uInt16
+    },
+    HOST_NAME: {
+        name: 'Host-Name',
+        isList: true,
+        typeParser: typesParsers.utf8,
+        formatter: FORMATTERS.JOIN
+    },
+    DHCP_MESSAGE_TYPE: {
+        name: 'DHCP-Message-Type',
+        isList: false,
+        typeParser: typesParsers.uInt8
+    },
+    VENDOR_CLASS_IDENTIFIER: {
+        name: 'Vendor-class-identifier',
+        isList: true,
+        typeParser: typesParsers.utf8,
+        formatter: FORMATTERS.JOIN
+    },
+    PARAMETER_REQUEST_LIST: {
+        name: 'Parameter-Request-List',
+        isList: true,
+        typeParser: typesParsers.uInt8,
+        formatter: FORMATTERS.NONE
+    },
+    IPV4: {
+        name: 'IPv4-Address',
+        isList: false,
+        typeParser: typesParsers.ipv4
+    },
+    END: {
+        name: 'END',
+        isList: true,
+        typeParser: typesParsers.end
+    }
 }
+
+const instantiatedProperties = _.mapValues(dhcpProperties, value => new DhcpProperty(value))
+module.exports = instantiatedProperties 

@@ -1,37 +1,50 @@
-const DhcpOption = require('./DhcpOptionClass')
 const dhcpOptions = require('./dhcpOptions')
-const _ = require('lodash')
+const DhcpOption = require('./DhcpOptionClass')
+const dhcpResolver = require('./dhcpResolver')
 
-const META_DATA_LENGTH = 2
+const END_OPTION_NUMBER = 255
+const METADATA_PAYLOAD_SIZE = 2
 
-function getOptions(dhcpOptionsPayload) {
-    //console.log(_.map(_.chunk(dhcpOptionsPayload.toString('hex'), 2), pair => pair.join('')).join(' '))
-    let nonParsedPayload = dhcpOptionsPayload
-    let options = {}
-    while(nonParsedPayload.length) {
-        const {skippedPayload, parsedOption} = parseNextOption(nonParsedPayload)
-        options[parsedOption.name] = parsedOption.value
-        nonParsedPayload = nonParsedPayload.slice(skippedPayload.length, -1)
-    }
-    return options
+function getOptions(buffer) {
+    const result = getNextOption(buffer)
+    return result
 }
 
-function parseNextOption(payloadToParse) {
-    if (payloadToParse.length < META_DATA_LENGTH) {
-        console.log('Parsing offsets went wrong.', payloadToParse.length)
-        return {skippedPayload: Buffer.from([]), parsedOption: {}}
-    }
-    const optionMetaData = DhcpOption.parseMetaData(payloadToParse)
-    const skippedPayload = payloadToParse.slice(0, optionMetaData.payloadLength) //+ META_DATA_LENGTH)
-    if (!dhcpOptions[optionMetaData.code]) {
-        console.log('Missing parameter ', optionMetaData.code)
-        return {skippedPayload, parsedOption: {}}
-    }
-    const parsedOption = dhcpOptions[optionMetaData.code].parsePayload(optionMetaData, payloadToParse)
-    return {skippedPayload, parsedOption}
+function getNextOption(buffer, offset = 0, accumulatedOptions = {}) {
+    const optionNumber = DhcpOption.parseOptionNumber(buffer.slice(offset))
+    if (!dhcpOptions[optionNumber]) return handleUnknownDhcpProperty(buffer, offset, accumulatedOptions, optionNumber)
+    const optionName = dhcpOptions[optionNumber].name
+    if (optionNumber === END_OPTION_NUMBER)
+        return Object.assign({}, accumulatedOptions, {[optionName]: {}})
+
+    const relatedBufferSlice = DhcpOption.getBufferSlice(buffer.slice(offset))
+    const retrievedProperties = dhcpOptions[optionNumber].parse(relatedBufferSlice)
+    const newAccumulatedOptions = Object.assign({}, accumulatedOptions, {[optionName]: retrievedProperties})
+    const newOffset = offset + METADATA_PAYLOAD_SIZE + DhcpOption.parseOptionSize(relatedBufferSlice)
+    return getNextOption(
+        buffer,
+        newOffset,
+        newAccumulatedOptions
+    )
 }
 
-module.exports = {
-    getOptions
+function handleUnknownDhcpProperty(buffer, offset, accumulatedOptions = {}, optionNumber) {
+    dhcpResolver(optionNumber)
+        .then(optionName => {
+            console.error(`Unknown DHCP option ID: ${optionNumber}, resolved as: ${optionName}`)
+        })
+        .catch(err => {
+            console.error(`Unknown DHCP option ID: ${optionNumber}, Kricco was unable to resolve the name`, err)
+        })
+    
+    const relatedBufferSlice = DhcpOption.getBufferSlice(buffer.slice(offset))
+    DhcpOption.parseOptionSize(relatedBufferSlice)
+    const newOffset = offset + METADATA_PAYLOAD_SIZE + DhcpOption.parseOptionSize(relatedBufferSlice)
+    return getNextOption(
+        buffer,
+        newOffset,
+        accumulatedOptions
+    )
 }
 
+module.exports = {getOptions}
