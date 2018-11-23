@@ -15,11 +15,30 @@ const OPTIONS = {
 		properties: [
 			dhcpProperties.LIST_OF_IP_ADDRESSES
 		]
-	},
+    },
+    6: {
+        name: 'Domain Name Server',
+        properties: [
+            dhcpProperties.LIST_OF_IP_ADDRESSES
+        ]
+    },
     12: {
         name: 'Host Name',
         properties: [
-            dhcpProperties.HOST_NAME
+            dhcpProperties.TEXT
+        ]
+	},
+	28: {
+		name: 'Broadcast Address',
+		properties: [
+			dhcpProperties.IPV4
+		]
+    },
+    
+    50: {
+        name: 'Request IP Address',
+        properties: [
+            dhcpProperties.IPV4
         ]
 	},
 	28: {
@@ -52,6 +71,14 @@ const OPTIONS = {
             dhcpProperties.PARAMETER_REQUEST_LIST
         ]
     },
+
+    56: {
+        name: 'Message',
+        properties: [
+            dhcpProperties.TEXT
+        ]
+    },
+
     57: {
       name: 'Maximum DHCP Message Size',
       properties: [
@@ -75,6 +102,13 @@ const OPTIONS = {
         properties: [
             dhcpProperties.VENDOR_CLASS_IDENTIFIER
         ]
+    },
+    61: {
+        name: 'Client-identifier',
+        properties: [
+            dhcpProperties.CLIENT_IDENTIFIER
+        ]
+
     },    
     255: {
         name: 'END',

@@ -20,8 +20,8 @@ const dhcpProperties = {
         isList: false,
         typeParser: typesParsers.uInt16
     },
-    HOST_NAME: {
-        name: 'Host-Name',
+    TEXT: {
+        name: 'Text',
         isList: true,
         typeParser: typesParsers.utf8,
         formatter: FORMATTERS.JOIN
@@ -47,6 +47,12 @@ const dhcpProperties = {
         name: 'IPv4-Address',
         isList: false,
         typeParser: typesParsers.ipv4
+    },
+    CLIENT_IDENTIFIER: {
+        name: 'Client-Identifier',
+        isList: true,
+        typeParser: typesParsers.hex,
+        formatter: FORMATTERS.JOIN
     },
     END: {
         name: 'END',
