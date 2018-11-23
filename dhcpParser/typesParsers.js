@@ -12,7 +12,12 @@ const dictionary = {
         serialize: number => Buffer.alloc(16).writeUInt16BE(number),
         deserialize: buffer => buffer.readUInt16BE(),
         size: 2
-    },
+	},
+	uInt32: {
+		serialize: number => Buffer.alloc(32).writeUInt32BE(number),
+		deserialize: buffer => buffer.readUInt32BE(),
+		size: 4
+	},
     utf8: {
         serialize: string => Buffer.alloc(1).write(string),
         deserialize: buffer => buffer.toString('utf8'),
