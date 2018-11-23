@@ -25,8 +25,8 @@ const dhcpProperties = {
         isList: false,
         typeParser: typesParsers.uInt16
     },
-    HOST_NAME: {
-        name: 'Host-Name',
+    TEXT: {
+        name: 'Text',
         isList: true,
         typeParser: typesParsers.utf8,
         formatter: FORMATTERS.JOIN
