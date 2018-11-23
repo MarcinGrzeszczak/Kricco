@@ -5,6 +5,11 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
+	SUBNET_MASK: {
+		name: 'Subnet Mask',
+		isList: false,
+		typeParser: typesParsers.ipv4
+	},
 	REBINDING_TIME_VALUE: {
 		name: 'Rebinding-Time-Value',
 		isList: false,
