@@ -5,13 +5,23 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
+	LIST_OF_IP_ADDRESSES: {
+		name: 'List-Of-Ip-Addresses',
+		isList: true,
+		typeParser: typesParsers.ipv4
+	},
+	TIME_IN_SECONDS: {
+		name: 'Time-In-Seconds',
+		isList: false,
+		typeParser: typesParsers.uInt32
+	},
     MAXIUMUM_DHCP_MESSAGE_SIZE: {
         name: 'Maximum-DHCP-Message-Size',
         isList: false,
         typeParser: typesParsers.uInt16
     },
-    HOST_NAME: {
-        name: 'Host-Name',
+    TEXT: {
+        name: 'Text',
         isList: true,
         typeParser: typesParsers.utf8,
         formatter: FORMATTERS.JOIN
@@ -37,6 +47,12 @@ const dhcpProperties = {
         name: 'IPv4-Address',
         isList: false,
         typeParser: typesParsers.ipv4
+    },
+    CLIENT_IDENTIFIER: {
+        name: 'Client-Identifier',
+        isList: true,
+        typeParser: typesParsers.hex,
+        formatter: FORMATTERS.JOIN
     },
     END: {
         name: 'END',

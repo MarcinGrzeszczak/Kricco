@@ -20,7 +20,7 @@ describe('#dhcpOptions', () => {
 		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
 
 		//then
-		const EXPECTED_PROPERTY_NAME = 'Host-Name'
+		const EXPECTED_PROPERTY_NAME = 'Text'
 		const EXPECTED_PROPERTY_VALUE = 'android-d4ce383518a14fe2'
 		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})

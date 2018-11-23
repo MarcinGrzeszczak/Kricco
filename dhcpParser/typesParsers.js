@@ -12,7 +12,19 @@ const dictionary = {
         serialize: number => Buffer.alloc(2).writeUInt16BE(number),
         deserialize: buffer => buffer.readUInt16BE(),
         size: 2
+	},
+	uInt32: {
+		serialize: number => Buffer.alloc(32).writeUInt32BE(number),
+		deserialize: buffer => buffer.readUInt32BE(),
+		size: 4
     },
+    
+    hex: {
+       serialize: string => Buffer.from(string, 'hex')[0],
+       deserialize: buffer => buffer.toString('hex'),
+       size: 1
+    },
+
     utf8: {
         serialize: string => Buffer.alloc(1).write(string),
         deserialize: buffer => buffer.toString('utf8'),
@@ -25,7 +37,7 @@ const dictionary = {
         },
         deserialize: buffer => {
             let arrayToFill = Array(4).fill()
-            const listOfOctets = arrayToFill.map((value, index) => Buffer.readUInt8(index))
+            const listOfOctets = arrayToFill.map((value, index) => buffer.readUInt8(index))
             return listOfOctets.join('.')
         },
         size: 4
