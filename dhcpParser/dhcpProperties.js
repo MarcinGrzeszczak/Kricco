@@ -5,6 +5,11 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
+	REBINDING_TIME_VALUE: {
+		name: 'Rebinding-Time-Value',
+		isList: false,
+		typeParser: typesParsers.uInt32
+	},
 	SERVER_IDENTIFIER: {
 		name: 'Server-Identifier',
 		isList: false,

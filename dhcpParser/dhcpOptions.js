@@ -40,7 +40,13 @@ const OPTIONS = {
       properties: [
             dhcpProperties.MAXIUMUM_DHCP_MESSAGE_SIZE
       ]  
-    },
+	},
+	59: {
+		name: 'Rebinding (T2) Time Value',
+		properties: [
+			dhcpProperties.REBINDING_TIME_VALUE
+		]
+	},
     60: {
         name: 'Vendor class identifier',
         properties: [
