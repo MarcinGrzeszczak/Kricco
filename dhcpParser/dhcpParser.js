@@ -1,9 +1,20 @@
+const _ = require('lodash')
+
 const dhcpOptions = require('./dhcpOptions')
 const DhcpOption = require('./DhcpOptionClass')
 const dhcpResolver = require('./dhcpResolver')
 
 const END_OPTION_NUMBER = 255
 const METADATA_PAYLOAD_SIZE = 2
+
+function serializeOptions(options) {
+	let buffersList = []
+	_.forEach(options, (option, optionName) => {
+		const referredOption = _.find(dhcpOptions, iteratedDhcpOption => iteratedDhcpOption.name === optionName)
+		buffersList.push(referredOption.serialize(option))
+	})
+	return Buffer.concat(buffersList)
+}
 
 function getOptions(buffer) {
     const result = getNextOption(buffer)
@@ -47,4 +58,4 @@ function handleUnknownDhcpProperty(buffer, offset, accumulatedOptions = {}, opti
     )
 }
 
-module.exports = {getOptions}
+module.exports = {getOptions, serializeOptions}

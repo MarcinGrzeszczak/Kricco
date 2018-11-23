@@ -118,5 +118,5 @@ const OPTIONS = {
     } 
 }
 
-const instantiatedOptions = _.mapValues(OPTIONS, option => new DhcpOption(option))
+const instantiatedOptions = _.mapValues(OPTIONS, (option, id) => new DhcpOption(option, id))
 module.exports = instantiatedOptions
