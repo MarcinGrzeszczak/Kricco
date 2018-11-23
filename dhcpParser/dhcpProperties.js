@@ -53,6 +53,12 @@ const dhcpProperties = {
         isList: false,
         typeParser: typesParsers.ipv4
     },
+    CLIENT_IDENTIFIER: {
+        name: 'Client-Identifier',
+        isList: true,
+        typeParser: typesParsers.hex,
+        formatter: FORMATTERS.JOIN
+    },
     END: {
         name: 'END',
         isList: true,
