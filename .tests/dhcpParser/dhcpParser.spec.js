@@ -92,8 +92,10 @@ describe('#dhcpOptions', () => {
 		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
 
-	it.only('should keep parity after deserializing serialized message', () => {
+	it('should keep parity after deserializing serialized message', () => {
 		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
-		console.log(dhcpOptionsParser.serializeOptions(parsedOptions))
+		const serializedOptions = dhcpOptionsParser.serializeOptions(parsedOptions)
+		const deserializedOptions = dhcpOptionsParser.getOptions(serializedOptions)
+		assert.deepEqual(deserializedOptions, parsedOptions)
 	})
 })

@@ -4,17 +4,29 @@ const TypeParser = require('./TypeParserClass')
 
 const dictionary = {
     uInt8: {
-        serialize: number => Buffer.alloc(1).writeUInt8(number),
+        serialize: number => {
+			const buffer = Buffer.alloc(1)
+			buffer.writeUInt8(number)
+			return buffer
+		},
         deserialize: buffer => buffer.readUInt8(),
         size: 1 
     },
     uInt16: {
-        serialize: number => Buffer.alloc(2).writeUInt16BE(number),
+        serialize: number => {
+			const buffer = Buffer.alloc(2)
+			buffer.writeUInt16BE(number)
+			return buffer
+		},
         deserialize: buffer => buffer.readUInt16BE(),
         size: 2
 	},
 	uInt32: {
-		serialize: number => Buffer.alloc(32).writeUInt32BE(number),
+		serialize: number => {
+			const buffer = Buffer.alloc(4)
+			buffer.writeUInt32BE(number)
+			return buffer
+		},
 		deserialize: buffer => buffer.readUInt32BE(),
 		size: 4
     },
@@ -26,14 +38,19 @@ const dictionary = {
     },
 
     utf8: {
-        serialize: string => Buffer.alloc(1).write(string),
+        serialize: string => {
+			const buffer = Buffer.alloc(1)
+			buffer.write(string)
+			return buffer
+		},
         deserialize: buffer => buffer.toString('utf8'),
         size: 1
     },
     ipv4: {
         serialize: ip => {
-            const parsedOctets = string.split('.').map(parseInt)
-            return Buffer.alloc(4).writeUInt8(parsedOctets)
+			const parsedOctets = string.split('.').map(parseInt)
+			const buffer = Buffer.alloc(4)
+            return buffer.writeUInt8(parsedOctets)
         },
         deserialize: buffer => {
             let arrayToFill = Array(4).fill()

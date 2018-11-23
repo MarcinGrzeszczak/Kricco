@@ -11,7 +11,7 @@ function serializeOptions(options) {
 	let buffersList = []
 	_.forEach(options, (option, optionName) => {
 		const referredOption = _.find(dhcpOptions, iteratedDhcpOption => iteratedDhcpOption.name === optionName)
-		buffersList.concat(referredOption.serialize(option))
+		buffersList.push(referredOption.serialize(option))
 	})
 	return Buffer.concat(buffersList)
 }
