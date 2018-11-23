@@ -15,7 +15,13 @@ const OPTIONS = {
 		properties: [
 			dhcpProperties.LIST_OF_IP_ADDRESSES
 		]
-	},
+    },
+    6: {
+        name: 'Domain Name Server',
+        properties: [
+            dhcpProperties.LIST_OF_IP_ADDRESSES
+        ]
+    },
     12: {
         name: 'Host Name',
         properties: [
