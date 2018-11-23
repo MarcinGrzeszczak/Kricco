@@ -31,7 +31,7 @@ const OPTIONS = {
 	51: {
 		name: 'Address time',
 		properties: [
-			dhcpProperties.ADDRESS_TIME
+			dhcpProperties.TIME_IN_SECONDS
 		]
 	},
     53: {
@@ -52,17 +52,22 @@ const OPTIONS = {
             dhcpProperties.PARAMETER_REQUEST_LIST
         ]
     },
-
     57: {
       name: 'Maximum DHCP Message Size',
       properties: [
             dhcpProperties.MAXIUMUM_DHCP_MESSAGE_SIZE
       ]  
 	},
+	58: {
+		name: 'Renewal (T1) Time Value', 
+		properties: [
+			dhcpProperties.TIME_IN_SECONDS
+		]
+	},
 	59: {
 		name: 'Rebinding (T2) Time Value',
 		properties: [
-			dhcpProperties.REBINDING_TIME_VALUE
+			dhcpProperties.TIME_IN_SECONDS
 		]
 	},
     60: {

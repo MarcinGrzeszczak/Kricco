@@ -10,13 +10,8 @@ const dhcpProperties = {
 		isList: true,
 		typeParser: typesParsers.ipv4
 	},
-	REBINDING_TIME_VALUE: {
-		name: 'Rebinding-Time-Value',
-		isList: false,
-		typeParser: typesParsers.uInt32
-	},
-	ADDRESS_TIME: {
-		name: 'IP-Adress-Lease-Time',
+	TIME_IN_SECONDS: {
+		name: 'Time-In-Seconds',
 		isList: false,
 		typeParser: typesParsers.uInt32
 	},
