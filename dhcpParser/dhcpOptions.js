@@ -91,6 +91,13 @@ const OPTIONS = {
         properties: [
             dhcpProperties.VENDOR_CLASS_IDENTIFIER
         ]
+    },
+    61: {
+        name: 'Client-identifier',
+        properties: [
+            dhcpProperties.CLIENT_IDENTIFIER
+        ]
+
     },    
     255: {
         name: 'END',
