@@ -5,25 +5,15 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
-	BROADCAST_ADDRESS: {
-		name: 'Broadcast Address',
-		isList: false,
-		typeParser: typesParsers.ipv4
-	},
-	SUBNET_MASK: {
-		name: 'Subnet Mask',
-		isList: false,
+	LIST_OF_IP_ADDRESSES: {
+		name: 'List-Of-Ip-Addresses',
+		isList: true,
 		typeParser: typesParsers.ipv4
 	},
 	REBINDING_TIME_VALUE: {
 		name: 'Rebinding-Time-Value',
 		isList: false,
 		typeParser: typesParsers.uInt32
-	},
-	SERVER_IDENTIFIER: {
-		name: 'Server-Identifier',
-		isList: false,
-		typeParser: typesParsers.ipv4
 	},
 	ADDRESS_TIME: {
 		name: 'IP-Adress-Lease-Time',

@@ -7,7 +7,13 @@ const OPTIONS = {
 	1: {
 		name: 'Subnet Mask',
 		properties: [
-			dhcpProperties.SUBNET_MASK
+			dhcpProperties.IPV4
+		]
+	},
+	3: {
+		name: 'Router Option',
+		properties: [
+			dhcpProperties.LIST_OF_IP_ADDRESSES
 		]
 	},
     12: {
@@ -19,7 +25,7 @@ const OPTIONS = {
 	28: {
 		name: 'Broadcast Address',
 		properties: [
-			dhcpProperties.BROADCAST_ADDRESS
+			dhcpProperties.IPV4
 		]
 	},
 	51: {
@@ -37,7 +43,7 @@ const OPTIONS = {
 	54: {
 		name: 'Server Identifier',
 		properties: [
-			dhcpProperties.SERVER_IDENTIFIER
+			dhcpProperties.IPV4
 		]
 	},
     55: {
