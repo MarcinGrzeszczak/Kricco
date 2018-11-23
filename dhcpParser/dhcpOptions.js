@@ -4,6 +4,12 @@ const DhcpOption = require('./DhcpOptionClass')
 const dhcpProperties = require('./dhcpProperties')
 
 const OPTIONS = {
+	1: {
+		name: 'Subnet Mask',
+		properties: [
+			dhcpProperties.SUBNET_MASK
+		]
+	},
     12: {
         name: 'Host Name',
         properties: [
