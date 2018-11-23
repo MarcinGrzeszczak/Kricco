@@ -9,8 +9,13 @@ const OPTIONS = {
         properties: [
             dhcpProperties.HOST_NAME
         ]
-    },
-
+	},
+	51: {
+		name: 'Address time',
+		properties: [
+			dhcpProperties.ADDRESS_TIME
+		]
+	},
     53: {
         name: 'DHCP Message Type',
         properties: [
