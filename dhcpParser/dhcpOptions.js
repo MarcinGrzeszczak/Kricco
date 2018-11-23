@@ -11,7 +11,7 @@ const OPTIONS = {
 		]
 	},
 	3: {
-		name: 'Router Option',
+		name: 'List of IPv4 Addresses',
 		properties: [
 			dhcpProperties.LIST_OF_IP_ADDRESSES
 		]
