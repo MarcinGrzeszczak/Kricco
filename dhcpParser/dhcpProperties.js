@@ -5,6 +5,11 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
+	BROADCAST_ADDRESS: {
+		name: 'Broadcast Address',
+		isList: false,
+		typeParser: typesParsers.ipv4
+	},
 	SUBNET_MASK: {
 		name: 'Subnet Mask',
 		isList: false,
