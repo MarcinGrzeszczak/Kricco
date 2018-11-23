@@ -5,6 +5,16 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
+	LIST_OF_IP_ADDRESSES: {
+		name: 'List-Of-Ip-Addresses',
+		isList: true,
+		typeParser: typesParsers.ipv4
+	},
+	TIME_IN_SECONDS: {
+		name: 'Time-In-Seconds',
+		isList: false,
+		typeParser: typesParsers.uInt32
+	},
     MAXIUMUM_DHCP_MESSAGE_SIZE: {
         name: 'Maximum-DHCP-Message-Size',
         isList: false,
