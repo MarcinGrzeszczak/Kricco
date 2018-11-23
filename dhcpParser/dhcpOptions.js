@@ -16,6 +16,12 @@ const OPTIONS = {
             dhcpProperties.HOST_NAME
         ]
 	},
+	28: {
+		name: 'Broadcast Address',
+		properties: [
+			dhcpProperties.BROADCAST_ADDRESS
+		]
+	},
 	51: {
 		name: 'Address time',
 		properties: [
