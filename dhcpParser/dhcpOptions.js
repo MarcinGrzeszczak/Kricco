@@ -33,7 +33,15 @@ const OPTIONS = {
 		properties: [
 			dhcpProperties.IPV4
 		]
-	},
+    },
+    
+    50: {
+        name: 'Request IP Address',
+        properties: [
+            dhcpProperties.IPV4
+        ]
+    },
+
 	51: {
 		name: 'Address time',
 		properties: [
