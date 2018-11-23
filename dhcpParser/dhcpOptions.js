@@ -25,7 +25,7 @@ const OPTIONS = {
     12: {
         name: 'Host Name',
         properties: [
-            dhcpProperties.HOST_NAME
+            dhcpProperties.TEXT
         ]
 	},
 	28: {
@@ -64,6 +64,13 @@ const OPTIONS = {
         name: 'Parameter request list',
         properties: [
             dhcpProperties.PARAMETER_REQUEST_LIST
+        ]
+    },
+
+    56: {
+        name: 'Message',
+        properties: [
+            dhcpProperties.TEXT
         ]
     },
 
