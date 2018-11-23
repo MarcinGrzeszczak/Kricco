@@ -22,7 +22,12 @@ const OPTIONS = {
             dhcpProperties.DHCP_MESSAGE_TYPE
         ]
     },
-
+	54: {
+		name: 'Server Identifier',
+		properties: [
+			dhcpProperties.SERVER_IDENTIFIER
+		]
+	},
     55: {
         name: 'Parameter request list',
         properties: [

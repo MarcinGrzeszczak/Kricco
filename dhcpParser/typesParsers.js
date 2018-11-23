@@ -30,10 +30,10 @@ const dictionary = {
         },
         deserialize: buffer => {
             let arrayToFill = Array(4).fill()
-            const listOfOctets = arrayToFill.map((value, index) => Buffer.readUInt8(index))
+            const listOfOctets = arrayToFill.map((value, index) => buffer.readUInt8(index))
             return listOfOctets.join('.')
         },
-        size: 32
+        size: 4
     },
     end: {
         serialize: () => Buffer.alloc(0),
