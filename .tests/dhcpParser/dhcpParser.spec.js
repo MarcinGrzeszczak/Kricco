@@ -91,4 +91,9 @@ describe('#dhcpOptions', () => {
 		const EXPECTED_PROPERTY_VALUE = 'android-dhcp-7.0'
 		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
+
+	it.only('should keep parity after deserializing serialized message', () => {
+		const parsedOptions = dhcpOptionsParser.getOptions(suite.DHCP_BINARY_DATA)
+		console.log(dhcpOptionsParser.serializeOptions(parsedOptions))
+	})
 })

@@ -1,3 +1,4 @@
+const _ = require('lodash')
 class DhcpOption {
     constructor({name, properties}) {
         this.name = name
@@ -24,7 +25,16 @@ class DhcpOption {
         const payload = dhcpOptionRelatedBufferSlice.slice(PAYLOAD_OFFSET)
         const parsedProperties = this.properties.reduce(DhcpOption.accumulateProperties(payload), {})
         return parsedProperties
-    }
+	}
+	
+	serialize(optionObject) {
+		let listOfBuffers = []
+		_.forEach(optionObject, (propertyValue, propertyName) => {
+			const relatedProperty = this.properties.find(iteratedProperty => iteratedProperty.getName() === propertyName)
+			listOfBuffers.concat(relatedProperty.serialize(propertyValue))
+		})
+		return Buffer.concat(listOfBuffers)
+	}
 
     static accumulateProperties(payload) {
         let offset = 0

@@ -4,12 +4,12 @@ const TypeParser = require('./TypeParserClass')
 
 const dictionary = {
     uInt8: {
-        serialize: number => Buffer.alloc(8).writeUInt8(number),
+        serialize: number => Buffer.alloc(1).writeUInt8(number),
         deserialize: buffer => buffer.readUInt8(),
         size: 1 
     },
     uInt16: {
-        serialize: number => Buffer.alloc(16).writeUInt16BE(number),
+        serialize: number => Buffer.alloc(2).writeUInt16BE(number),
         deserialize: buffer => buffer.readUInt16BE(),
         size: 2
     },
@@ -21,14 +21,14 @@ const dictionary = {
     ipv4: {
         serialize: ip => {
             const parsedOctets = string.split('.').map(parseInt)
-            return Buffer.alloc(32).writeUInt8(parsedOctets)
+            return Buffer.alloc(4).writeUInt8(parsedOctets)
         },
         deserialize: buffer => {
             let arrayToFill = Array(4).fill()
             const listOfOctets = arrayToFill.map((value, index) => Buffer.readUInt8(index))
             return listOfOctets.join('.')
         },
-        size: 32
+        size: 4
     },
     end: {
         serialize: () => Buffer.alloc(0),

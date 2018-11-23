@@ -43,7 +43,8 @@ class DhcpProperty {
         if (!this[IS_LIST] && listOfValues.length > 1) {
             const error = `${this.getName()} Property serialize error: list of values of length ${listOfValues.length}, has been passed to serialize, but the data type is not a list type)`
             throw new Error(error)
-        }
+		}
+		if (!this[IS_LIST]) listOfValues = [listOfValues]
         const finalBufferSize = listOfValues.length * this[GET_SINGLE_DATA_UNIT_SIZE]()
         const listOfBuffers = listOfValues.map(this[TYPE_PARSER].serialize)
         return Buffer.concat(listOfBuffers, finalBufferSize)
