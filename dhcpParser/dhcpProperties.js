@@ -5,6 +5,11 @@ const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
 const dhcpProperties = {
+	SERVER_IDENTIFIER: {
+		name: 'Server-Identifier',
+		isList: false,
+		typeParser: typesParsers.ipv4
+	},
 	ADDRESS_TIME: {
 		name: 'IP-Adress-Lease-Time',
 		isList: false,
