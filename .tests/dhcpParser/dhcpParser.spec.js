@@ -1,7 +1,7 @@
 const fs = require('fs')
 const assert = require('chai').assert
-const dhcpOptionsParser = require('../../dhcpParser/dhcpParser')
-const dhcpOptions = require('../../dhcpParser/parsingConfiguration/dhcpOptions')
+const dhcpOptionsParser = require('../../parser/dhcpParser/dhcpParser')
+const dhcpOptions = require('../../parser/dhcpParser/parsingConfiguration/dhcpOptions')
 let suite = {}
 describe('#dhcpOptions', () => {
 	before(() => {
