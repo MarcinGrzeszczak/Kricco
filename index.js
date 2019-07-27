@@ -14,7 +14,7 @@ const fileToParse = args.flags.fileToParse || args.flags.f
 
 if (fileToParse) {
     const dhcpPacket = fs.readFileSync(path.resolve(fileToParse))
-    const parsingResult = parseDhcpPacket(dhcpPacket)
+    const parsingResult = parseDhcpPacket.parseDhcpPacket(dhcpPacket)
     console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
 } else {
     udpServerCreator(port, onError, onMessage, onServerListening)
@@ -25,7 +25,7 @@ if (fileToParse) {
     
     function onMessage(message) {
         console.log('::::::::::::NEW MESSAGE::::::::::::')
-        const parsingResult = parseDhcpPacket(message)
+        const parsingResult = parseDhcpPacket.parseDhcpPacket(message)
         console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
     }
     
