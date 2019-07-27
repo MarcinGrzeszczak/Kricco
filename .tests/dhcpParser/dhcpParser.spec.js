@@ -2,6 +2,8 @@ const fs = require('fs')
 const assert = require('chai').assert
 const dhcpOptionsParser = require('../../parser/dhcpParser/dhcpParser')
 const dhcpOptions = require('../../parser/dhcpParser/parsingConfiguration/dhcpOptions')
+
+const TYPES_ENUM_VALUES = require('../../parser/dhcpParser/parsingConfiguration/typesEnumValues')
 let suite = {}
 describe('#dhcpOptions', () => {
 	before(() => {
@@ -35,7 +37,7 @@ describe('#dhcpOptions', () => {
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'DHCP-Message-Type'
-		const EXPECTED_PROPERTY_VALUE = 'DHCPDISCOVER'
+		const EXPECTED_PROPERTY_VALUE = TYPES_ENUM_VALUES.DHCP_MESSAGES[1]
 		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
 
