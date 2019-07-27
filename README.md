@@ -9,6 +9,9 @@ The default port is 67, you may need to give administrator/root privilleges to t
 ## Parsing a dumped DHCP packet
 Run `npm start -- --fileToParse="path/to/file"` or `npm start -- -f="path/to/file"` in order to parse a dumped DHCP packet. There is a few of dumped dhcp packets in Kricco repo already. You can find them in `mocks/`.
 
+## Testing
+Simply run `npm test`
+
 # Technologies
  - meow
  - lodash
