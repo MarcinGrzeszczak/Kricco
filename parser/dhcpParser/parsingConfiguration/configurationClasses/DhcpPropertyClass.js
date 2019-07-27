@@ -40,7 +40,7 @@ class DhcpProperty {
     }
 
     serialize(listOfValues) {
-        if (!this[IS_LIST] && listOfValues.length > 1) {
+        if (!this[IS_LIST] && listOfValues.length > 1 && Array.isArray(listOfValues)) {
             const error = `${this.getName()} Property serialize error: list of values of length ${listOfValues.length}, has been passed to serialize, but the data type is not a list type)`
             throw new Error(error)
 		}

@@ -34,7 +34,7 @@ const dhcpProperties = {
     DHCP_MESSAGE_TYPE: {
         name: 'DHCP-Message-Type',
         isList: false,
-        typeParser: typesParsers.uInt8
+        typeParser: typesParsers.dhcpMessageType
     },
     VENDOR_CLASS_IDENTIFIER: {
         name: 'Vendor-class-identifier',

@@ -18,4 +18,24 @@ function parse(message) {
     }
 }
 
-module.exports = parse
+function serialize(bootpObject) {
+	const buffer = Buffer.alloc(240)
+	buffer.writeUInt8(bootpObject.op, BOOTP_OFFSETS.OP)
+	buffer.writeUInt8(bootpObject.htype, BOOTP_OFFSETS.HTYPE)
+	buffer.writeUInt8(bootpObject.hlen, BOOTP_OFFSETS.HLEN)
+	buffer.writeUInt8(bootpObject.hops, BOOTP_OFFSETS.HOPS)
+	buffer.writeUInt32BE(bootpObject.xid, BOOTP_OFFSETS.XID)
+	buffer.writeUInt16BE(bootpObject.secs, BOOTP_OFFSETS.SECS)
+	buffer.writeUInt16BE(bootpObject.flags, BOOTP_OFFSETS.FLAGS)
+
+	parsingUtils.serializeIp((bootpObject.ciaddr)).copy(buffer, BOOTP_OFFSETS.CIADDR)
+	parsingUtils.serializeIp((bootpObject.yiaddr)).copy(buffer, BOOTP_OFFSETS.YIADDR)
+	parsingUtils.serializeIp((bootpObject.siaddr)).copy(buffer, BOOTP_OFFSETS.SIADDR)
+	parsingUtils.serializeIp((bootpObject.giaddr)).copy(buffer, BOOTP_OFFSETS.GIADDR)
+	parsingUtils.serializeMac((bootpObject.chaddr)).copy(buffer, BOOTP_OFFSETS.CHADDR)
+	bootpObject.magicCookie.copy(buffer, BOOTP_OFFSETS.MAGIC_COOKIE)
+
+	return buffer
+}
+
+module.exports = {parse, serialize}

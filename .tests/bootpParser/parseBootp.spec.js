@@ -12,7 +12,7 @@ describe('#parseBootp', () => {
 	it('should parse operation frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'op'
@@ -23,7 +23,7 @@ describe('#parseBootp', () => {
 	it('should parse hardware type frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'htype'
@@ -34,7 +34,7 @@ describe('#parseBootp', () => {
 	it('should parse hardware address length frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'hlen'
@@ -45,7 +45,7 @@ describe('#parseBootp', () => {
 	it('should parse hops frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'hops'
@@ -56,7 +56,7 @@ describe('#parseBootp', () => {
 	it('should parse transaction id frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'xid'
@@ -67,7 +67,7 @@ describe('#parseBootp', () => {
 	it('should parse seconds elapsed frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'secs'
@@ -78,7 +78,7 @@ describe('#parseBootp', () => {
 	it('should parse broadcast flags frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'flags'
@@ -89,7 +89,7 @@ describe('#parseBootp', () => {
 	it('should parse client ip address frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'ciaddr'
@@ -100,7 +100,7 @@ describe('#parseBootp', () => {
 	it('should parse Your (client) ip address frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'yiaddr'
@@ -111,7 +111,7 @@ describe('#parseBootp', () => {
 	it('should parse server ip address frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'siaddr'
@@ -122,7 +122,7 @@ describe('#parseBootp', () => {
 	it('should parse relay agent ip address frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'giaddr'
@@ -133,7 +133,7 @@ describe('#parseBootp', () => {
 	it('should parse client hardware address frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'chaddr'
@@ -144,7 +144,7 @@ describe('#parseBootp', () => {
 	it('should parse magic cookie frame',() => {
 	
 		//when
-		const parsedFrames = bootpParser(suite.DHCP_DISCOVERY_PACKET)
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 
 		//then
 		const expectedFrameName = 'magicCookie'
@@ -152,4 +152,13 @@ describe('#parseBootp', () => {
 		assert.deepEqual(parsedFrames[expectedFrameName], expectedFrameValue)
 	})
 	
+	it('should work two-way',() => {
+	
+		//when
+		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
+		const serializedFrames = bootpParser.serialize(parsedFrames)
+		const parsedFramesFromSerializedOne = bootpParser.parse(serializedFrames)
+		//then
+		assert.deepEqual(parsedFrames, parsedFramesFromSerializedOne)
+	})
 })

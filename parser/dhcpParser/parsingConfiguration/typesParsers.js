@@ -5,6 +5,8 @@
 const _ = require('lodash')
 
 const TypeParser = require('./configurationClasses/TypeParserClass')
+const TYPES_ENUM_VALUES = require('./typesEnumValues')
+
 
 const dictionary = {
     uInt8: {
@@ -52,7 +54,7 @@ const dictionary = {
     },
     ipv4: {
         serialize: ip => {
-			const parsedOctets = string.split('.').map(parseInt)
+			const parsedOctets = ip.split('.').map(parseInt)
 			const buffer = Buffer.alloc(4)
             return buffer.writeUInt8(parsedOctets)
         },
@@ -62,6 +64,20 @@ const dictionary = {
             return listOfOctets.join('.')
         },
         size: 4
+    },
+    dhcpMessageType: {
+        // DHCP Message types numbering starts from 1
+        serialize: dhcpMessage => {
+            const dhcpMessageNumber = TYPES_ENUM_VALUES.DHCP_MESSAGES.indexOf(dhcpMessage)
+            const buffer = Buffer.alloc(1)
+			buffer.writeUInt8(dhcpMessageNumber)
+			return buffer
+		},
+        deserialize: buffer => {
+            const number = buffer.readUInt8()
+            return TYPES_ENUM_VALUES.DHCP_MESSAGES[number]
+        },
+        size: 1 
     },
     end: {
         serialize: () => Buffer.alloc(0),

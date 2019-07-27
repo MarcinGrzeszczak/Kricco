@@ -6,11 +6,31 @@ module.exports = {
     parseMac,
     parseTo8UInt,
     parseTo16UInt,
-    parseToListOf8UInts
+    parseToListOf8UInts,
+    serializeIp,
+    serializeMac
 }
 
 function parseIp(buffer, offset = 0) {
     return `${buffer.readUInt8(offset)}.${buffer.readUInt8(offset+1)}.${buffer.readUInt8(offset+2)}.${buffer.readUInt8(offset+3)}`
+}
+
+function serializeIp(ip) {
+    const octetsList = ip.split('.').map(octet => parseInt(octet))
+    const buffer = Buffer.alloc(4)
+    octetsList.forEach((octet, index) => {
+        buffer.writeUInt8(octet, index)
+    })
+    return buffer
+}
+
+function serializeMac(mac) {
+    const octetsList = mac.split(':').map(octet => parseInt(octet, 16))
+    const buffer = Buffer.alloc(6)
+    octetsList.forEach((octet, index) => {
+        buffer.writeUInt8(octet, index)
+    })
+    return buffer
 }
 
 function parseMac(buffer, offset = 0) {
