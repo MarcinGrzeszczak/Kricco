@@ -5,7 +5,7 @@ const util = require('util')
 
 const udpServerCreator = require('./udpServerCreator')
 const handleArguments = require('./cli/handleArguments')
-const parseDhcpPacket = require('./parseDhcpPacket')
+const parseDhcpPacket = require('./parser/parseDhcpPacket')
 const args = handleArguments()
 
 const port = args.flags.port || args.flags.p

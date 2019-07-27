@@ -1,7 +1,7 @@
 const fs = require('fs')
 const assert = require('chai').assert
 const Buffer = require('buffer').Buffer
-const bootpParser = require('../../bootpParser/parseBootp')
+const bootpParser = require('../../parser/bootpParser/parseBootp')
 
 let suite = {}
 describe('#parseBootp', () => {
