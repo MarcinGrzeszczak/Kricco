@@ -1,6 +1,10 @@
+/*
+    A list of possible DHCP Options, each can has certain DHCP Properties which is basically a payload.
+*/
+
 const _ = require('lodash')
 
-const DhcpOption = require('./DhcpOptionClass')
+const DhcpOption = require('./configurationClasses/DhcpOptionClass')
 const dhcpProperties = require('./dhcpProperties')
 
 const OPTIONS = {

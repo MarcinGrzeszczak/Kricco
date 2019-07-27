@@ -1,7 +1,7 @@
 const _ = require('lodash')
 
-const dhcpOptions = require('./dhcpOptions')
-const DhcpOption = require('./DhcpOptionClass')
+const dhcpOptions = require('./parsingConfiguration/dhcpOptions')
+const DhcpOption = require('./parsingConfiguration/configurationClasses/DhcpOptionClass')
 const dhcpResolver = require('./dhcpResolver')
 
 const END_OPTION_NUMBER = 255

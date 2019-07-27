@@ -1,5 +1,5 @@
-const FORMATTERS = require('./formatters')
-const sharedSymbols = require('./sharedSymbols')
+const FORMATTERS = require('../formatters')
+const sharedSymbols = require('../sharedSymbols')
 
 const TYPE_PARSER = Symbol('Type parser')
 const IS_LIST = Symbol('Is list')

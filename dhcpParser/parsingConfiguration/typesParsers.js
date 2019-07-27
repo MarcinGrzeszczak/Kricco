@@ -1,6 +1,10 @@
+/*
+    Types parsers control how certain types of data have to be parsed.
+*/
+
 const _ = require('lodash')
 
-const TypeParser = require('./TypeParserClass')
+const TypeParser = require('./configurationClasses/TypeParserClass')
 
 const dictionary = {
     uInt8: {

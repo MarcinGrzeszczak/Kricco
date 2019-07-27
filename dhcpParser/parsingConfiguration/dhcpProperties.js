@@ -1,6 +1,11 @@
+/*
+    A DHCP Properties is not an entity specified in the official DHCP documentation. In Kricco they
+    represent DHCP Options payload.
+*/
+
 const _ = require('lodash')
 
-const DhcpProperty = require('./DhcpPropertyClass')
+const DhcpProperty = require('./configurationClasses/DhcpPropertyClass')
 const typesParsers = require('./typesParsers')
 const FORMATTERS = require('./formatters')
 
