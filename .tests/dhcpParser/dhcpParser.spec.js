@@ -35,7 +35,7 @@ describe('#dhcpOptions', () => {
 
 		//then
 		const EXPECTED_PROPERTY_NAME = 'DHCP-Message-Type'
-		const EXPECTED_PROPERTY_VALUE = 1
+		const EXPECTED_PROPERTY_VALUE = 'DHCPDISCOVER'
 		assert.strictEqual(parsedOptions[OPTION_NAME][EXPECTED_PROPERTY_NAME], EXPECTED_PROPERTY_VALUE)
 	})
 
