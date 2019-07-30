@@ -5,9 +5,17 @@ module.exports = {
             default: 67,
             alias: 'p'
         },
-        file: {
+        fileToParse: {
             type: 'string',
             alias: 'f'
+        },
+        fileToSerialize: {
+            type: 'string',
+            alias: 's'
+        },
+        debug: {
+            type: 'boolean',
+            alias: 'd'
         }
     }
 }

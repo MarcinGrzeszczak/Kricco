@@ -1,7 +1,9 @@
 const parsingUtils = require('./parsingUtils')
 const BOOTP_OFFSETS = require('./bootpOffsets')
+const {logger} = require('../../logger')
 function parse(message) {
-    return  {
+	logger.debug('Starting BOOTP part parsing')
+	const bootp = {
 		op : message.readInt8(BOOTP_OFFSETS.OP),
 		htype: message.readInt8(BOOTP_OFFSETS.HTYPE),
 		hlen: message.readUInt8(BOOTP_OFFSETS.HLEN),
@@ -15,10 +17,15 @@ function parse(message) {
 		giaddr: parsingUtils.parseIp(message, BOOTP_OFFSETS.GIADDR),
 		chaddr: parsingUtils.parseMac(message, BOOTP_OFFSETS.CHADDR),
 		magicCookie: message.slice(BOOTP_OFFSETS.MAGIC_COOKIE, BOOTP_OFFSETS.MAGIC_COOKIE + 4)
-    }
+	}
+	logger.debug(`Parsig BOOTP done, result: `)
+	logger.debug(bootp)
+	return bootp
 }
 
 function serialize(bootpObject) {
+	logger.debug(`Serializing BOOTP:`)
+	logger.debug(bootpObject)
 	const buffer = Buffer.alloc(240)
 	buffer.writeUInt8(bootpObject.op, BOOTP_OFFSETS.OP)
 	buffer.writeUInt8(bootpObject.htype, BOOTP_OFFSETS.HTYPE)
@@ -34,7 +41,8 @@ function serialize(bootpObject) {
 	parsingUtils.serializeIp((bootpObject.giaddr)).copy(buffer, BOOTP_OFFSETS.GIADDR)
 	parsingUtils.serializeMac((bootpObject.chaddr)).copy(buffer, BOOTP_OFFSETS.CHADDR)
 	bootpObject.magicCookie.copy(buffer, BOOTP_OFFSETS.MAGIC_COOKIE)
-
+	logger.debug(`BOOTP serializing done. Result:`)
+	logger.debug(buffer)
 	return buffer
 }
 
