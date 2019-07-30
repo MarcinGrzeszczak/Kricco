@@ -153,7 +153,6 @@ describe('#parseBootp', () => {
 	})
 	
 	it('should work two-way',() => {
-	
 		//when
 		const parsedFrames = bootpParser.parse(suite.DHCP_DISCOVERY_PACKET)
 		const serializedFrames = bootpParser.serialize(parsedFrames)
