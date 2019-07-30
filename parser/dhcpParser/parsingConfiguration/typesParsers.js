@@ -55,8 +55,11 @@ const dictionary = {
     ipv4: {
         serialize: ip => {
 			const parsedOctets = ip.split('.').map(parseInt)
-			const buffer = Buffer.alloc(4)
-            return buffer.writeUInt8(parsedOctets)
+            const buffer = Buffer.alloc(4)
+            parsedOctets.forEach((octet, index) => {
+                buffer.writeUInt8(octet, index)
+            })
+            return buffer
         },
         deserialize: buffer => {
             let arrayToFill = Array(4).fill()

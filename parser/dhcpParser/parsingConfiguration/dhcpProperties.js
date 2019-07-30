@@ -56,7 +56,7 @@ const dhcpProperties = {
     CLIENT_IDENTIFIER: {
         name: 'Client-Identifier',
         isList: true,
-        typeParser: typesParsers.hex,
+        typeParser: typesParsers.utf8,
         formatter: FORMATTERS.JOIN
     },
     END: {

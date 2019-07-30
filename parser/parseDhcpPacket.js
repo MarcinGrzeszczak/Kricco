@@ -10,10 +10,10 @@ function parseDhcpPacket(packet) {
 }
 
 function serializeDhcpPacket(packet) {
-    const bootpBytes = bootpParser.serialize(packet)
+    const bootpBytes = bootpParser.serialize(packet.bootp)
     const dhcpBytes = dhcpParser.serializeOptions(packet.dhcp)
     const packetSize = bootpBytes.length + dhcpBytes.length
-    const buffer = Buffer.concat(bootpBytes, dhcpBytes, packetSize)
+    const buffer = Buffer.concat([bootpBytes, dhcpBytes], packetSize)
     return buffer
 }
 module.exports = {parseDhcpPacket, serializeDhcpPacket}

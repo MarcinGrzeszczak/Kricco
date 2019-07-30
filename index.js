@@ -11,14 +11,13 @@ const args = handleArguments()
 
 const port = args.flags.port || args.flags.p
 const fileToParse = args.flags.fileToParse || args.flags.f
-
-
+createDhcpError()
 if (fileToParse) {
     const dhcpPacket = fs.readFileSync(path.resolve(fileToParse))
     const parsingResult = parseDhcpPacket.parseDhcpPacket(dhcpPacket)
     console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
 } else {
-    const server = udpServerCreator(port, onError, onMessage, onServerListening)
+    const server = udpServerCreator(port, onError, onMessage, onServerListening, onConnect)
 
     function onError(error) {
         console.log(`Error occured ${error}`)
@@ -26,16 +25,27 @@ if (fileToParse) {
     
     function onMessage(message, rfinfo) {
         console.log('::::::::::::NEW MESSAGE::::::::::::')
+        // console.log(server.remoteAddress())
         const parsingResult = parseDhcpPacket.parseDhcpPacket(message)
         console.log(util.inspect(parsingResult, {showHidden: false, depth: null}))
         console.log(rfinfo)
         server.setBroadcast(true);
         const error = createDhcpError()
-        server.send(error, 0, error.length, rfinfo.port, "192.168.0.255");
+        console.log('RFINFO', rfinfo)
+        server.send(error, 0, error.length, 68, "255.255.255.255", cb => {
+            console.log('::::::::::::KRICCO RESPONSE::::::::::::')
+            console.log(error)
+            console.log(cb)
+        });
     }
     
     function onServerListening() {
+        console.log(server.address())
         console.log(`DHCP Server is listening on port ${port}`)
+    }
+
+    function onConnect(conn) {
+        console.log(`DHCP Server connected ${JSON.stringify(conn)}`)
     }
 }
 

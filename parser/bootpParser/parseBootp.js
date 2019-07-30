@@ -19,7 +19,8 @@ function parse(message) {
 }
 
 function serialize(bootpObject) {
-	const buffer = Buffer.alloc(240)
+	const BOOTP_PART_SIZE = 240
+	const buffer = Buffer.alloc(BOOTP_PART_SIZE)
 	buffer.writeUInt8(bootpObject.op, BOOTP_OFFSETS.OP)
 	buffer.writeUInt8(bootpObject.htype, BOOTP_OFFSETS.HTYPE)
 	buffer.writeUInt8(bootpObject.hlen, BOOTP_OFFSETS.HLEN)
@@ -28,11 +29,11 @@ function serialize(bootpObject) {
 	buffer.writeUInt16BE(bootpObject.secs, BOOTP_OFFSETS.SECS)
 	buffer.writeUInt16BE(bootpObject.flags, BOOTP_OFFSETS.FLAGS)
 
-	parsingUtils.serializeIp((bootpObject.ciaddr)).copy(buffer, BOOTP_OFFSETS.CIADDR)
-	parsingUtils.serializeIp((bootpObject.yiaddr)).copy(buffer, BOOTP_OFFSETS.YIADDR)
-	parsingUtils.serializeIp((bootpObject.siaddr)).copy(buffer, BOOTP_OFFSETS.SIADDR)
-	parsingUtils.serializeIp((bootpObject.giaddr)).copy(buffer, BOOTP_OFFSETS.GIADDR)
-	parsingUtils.serializeMac((bootpObject.chaddr)).copy(buffer, BOOTP_OFFSETS.CHADDR)
+	parsingUtils.serializeIp(bootpObject.ciaddr).copy(buffer, BOOTP_OFFSETS.CIADDR)
+	parsingUtils.serializeIp(bootpObject.yiaddr).copy(buffer, BOOTP_OFFSETS.YIADDR)
+	parsingUtils.serializeIp(bootpObject.siaddr).copy(buffer, BOOTP_OFFSETS.SIADDR)
+	parsingUtils.serializeIp(bootpObject.giaddr).copy(buffer, BOOTP_OFFSETS.GIADDR)
+	parsingUtils.serializeMac(bootpObject.chaddr).copy(buffer, BOOTP_OFFSETS.CHADDR)
 	bootpObject.magicCookie.copy(buffer, BOOTP_OFFSETS.MAGIC_COOKIE)
 
 	return buffer
