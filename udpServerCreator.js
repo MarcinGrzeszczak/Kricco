@@ -1,6 +1,6 @@
 
 const dgram = require('dgram')
-const server = dgram.createSocket('udp4')
+const server = dgram.createSocket({type: 'udp4', reuseAddr:true})
 
 const EVENTS = {
     ERROR: 'error',
