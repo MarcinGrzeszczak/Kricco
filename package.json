@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./.tests/**/*.spec.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "client": "node simple-client"
   },
   "repository": {
     "type": "git",

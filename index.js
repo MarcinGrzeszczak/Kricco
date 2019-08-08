@@ -11,7 +11,7 @@ const args = handleArguments()
 
 const port = args.flags.port || args.flags.p
 const fileToParse = args.flags.fileToParse || args.flags.f
-createDhcpError()
+
 if (fileToParse) {
     const dhcpPacket = fs.readFileSync(path.resolve(fileToParse))
     const parsingResult = parseDhcpPacket.parseDhcpPacket(dhcpPacket)
