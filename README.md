@@ -1,5 +1,5 @@
 # Kricco
-The app is a DHCP server which assigns IP addresses to devices that try to access a network. It listenes on port 67, and when new device asks for an IP, the app serves it to the requesting device over DHCP protocol.
+The is a DHCP server which assigns IP addresses to devices that tries to access a local network. It listenes on the port 67 and when new device asks for an IP, the app assigns it to the requesting device over DHCP protocol.
 
 # How to run
 
@@ -25,7 +25,7 @@ Simply run `npm test`
 
  # Roadmap
  - [X] Parse BOOTP Packets
- - [ ] Parse DHCP Packers (Done for basic DHCP Discovery packets)
+ - [ ] Parse DHCP Packets (WIP)
  - [ ] Send DHCP Pakcets
  - [ ] IP Addresses map
  - [ ] IP Addresses management
